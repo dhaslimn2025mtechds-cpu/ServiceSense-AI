@@ -5,9 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>ServiceSense AI</title>
+    <title>ServiceSense AI - Research Demo</title>
 
     <style>
+
         body {
             font-family: Arial, sans-serif;
             background: #f4f6f8;
@@ -16,8 +17,9 @@
         }
 
         .container {
-            width: 70%;
-            margin: 50px auto;
+            width: 80%;
+            max-width: 1050px;
+            margin: 40px auto;
             background: white;
             padding: 30px;
             border-radius: 12px;
@@ -26,6 +28,18 @@
 
         h1 {
             text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .research-title {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 30px;
         }
 
         textarea {
@@ -34,6 +48,9 @@
             padding: 12px;
             font-size: 16px;
             box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: vertical;
         }
 
         button {
@@ -41,79 +58,696 @@
             padding: 12px 25px;
             font-size: 16px;
             cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            background: #222;
+            color: white;
         }
 
-        .result {
+        .section {
             margin-top: 30px;
             padding: 20px;
             background: #f8f9fa;
             border-radius: 10px;
         }
 
+        .section h2 {
+            margin-top: 0;
+        }
+
+        .result-item {
+            margin-bottom: 18px;
+        }
+
         .label {
             font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .value {
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .research-box {
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 8px;
+            background: white;
+            border: 1px solid #ddd;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 15px;
         }
+
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #eeeeee;
+        }
+
+        .proposed {
+            font-weight: bold;
+            background: #f1f1f1;
+        }
+
+        .priority-high {
+            font-weight: bold;
+        }
+
+        .priority-normal {
+            font-weight: bold;
+        }
+
+        .decision-box {
+            padding: 12px;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
     </style>
+
 </head>
+
 
 <body>
 
 <div class="container">
 
-    <h1>ServiceSense AI</h1>
 
-    <p>Customer Complaint Classification & Resolution Suggestion System</p>
+    <!-- ================================================== -->
+    <!-- TITLE -->
+    <!-- ================================================== -->
 
-    <form method="POST">
+    <h1>
+        ServiceSense AI
+    </h1>
 
-        <textarea
-            name="complaint"
-            placeholder="Enter customer complaint here..."
-            required>{{ complaint }}</textarea>
+    <p class="subtitle">
+        Intelligent Customer Complaint Classification
+        & Resolution Suggestion System
+    </p>
 
-        <br>
+    <p class="research-title">
+        Research Demo:
+        Confidence-Aware Hybrid ML + RAG Framework
+    </p>
 
-        <button type="submit">
-            Analyze Complaint
-        </button>
 
-    </form>
+
+    <!-- ================================================== -->
+    <!-- 1. COMPLAINT INPUT -->
+    <!-- ================================================== -->
+
+    <div class="section">
+
+        <h2>
+            1. Customer Complaint Input
+        </h2>
+
+        <form method="POST">
+
+            <textarea
+                name="complaint"
+                placeholder="Enter customer complaint here..."
+                required>{{ complaint }}</textarea>
+
+            <br>
+
+            <button type="submit">
+                Analyze Complaint
+            </button>
+
+        </form>
+
+    </div>
+
 
 
     {% if result %}
 
-    <div class="result">
 
-        <div class="label">
-            Predicted Intent:
+    <!-- ================================================== -->
+    <!-- 2. HYBRID ANALYSIS -->
+    <!-- ================================================== -->
+
+    <div class="section">
+
+        <h2>
+            2. Hybrid ML + RAG Analysis
+        </h2>
+
+
+        <div class="result-item">
+
+            <div class="label">
+                Research Method:
+            </div>
+
+            <p class="value">
+                Confidence-Aware Hybrid ML + RAG
+            </p>
+
         </div>
 
-        <p>
-            {{ result.intent }}
-        </p>
 
 
-        <div class="label">
-            Suggested Resolution:
+        <!-- DECISION SOURCE -->
+
+        <div class="result-item">
+
+            <div class="label">
+                Final Decision Source:
+            </div>
+
+            <div class="decision-box">
+
+                {{ result.decision_source }}
+
+            </div>
+
         </div>
 
-        <p>
-            {{ result.resolution }}
-        </p>
 
 
-        <div class="label">
-            Similarity Score:
+        <!-- THRESHOLD -->
+
+        <div class="result-item">
+
+            <div class="label">
+                Validation-Selected Threshold:
+            </div>
+
+            <p class="value">
+
+                {{ result.threshold }}
+
+            </p>
+
         </div>
 
-        <p>
-            {{ result.similarity }}
-        </p>
+
+
+        <!-- CATEGORY -->
+
+        <div class="result-item">
+
+            <div class="label">
+                Complaint Category:
+            </div>
+
+            <p class="value">
+
+                {{ result.category }}
+
+            </p>
+
+        </div>
+
+
+
+        <!-- INTENT -->
+
+        <div class="result-item">
+
+            <div class="label">
+                Final Predicted Intent:
+            </div>
+
+            <p class="value">
+
+                {{ result.intent }}
+
+            </p>
+
+        </div>
+
+
+
+        <!-- RESOLUTION -->
+
+        <div class="result-item">
+
+            <div class="label">
+                Retrieved / Suggested Resolution:
+            </div>
+
+            <p class="value">
+
+                {{ result.resolution }}
+
+            </p>
+
+        </div>
+
+
+
+        <!-- SIMILARITY -->
+
+        <div class="result-item">
+
+            <div class="label">
+                Retrieval Similarity Score:
+            </div>
+
+            <p class="value">
+
+                {{ result.similarity }}
+
+            </p>
+
+        </div>
+
+
+
+        <!-- CONFIDENCE -->
+
+        <div class="result-item">
+
+            <div class="label">
+                Confidence Level:
+            </div>
+
+            <p class="value">
+
+                {{ result.confidence }}
+
+            </p>
+
+        </div>
+
+
+
+        <!-- PRIORITY -->
+
+        <div class="result-item">
+
+            <div class="label">
+                Priority:
+            </div>
+
+
+            {% if result.priority == "High" %}
+
+                <p class="value priority-high">
+
+                    {{ result.priority }}
+
+                </p>
+
+            {% else %}
+
+                <p class="value priority-normal">
+
+                    {{ result.priority }}
+
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+
+        <!-- RECOMMENDED ACTION -->
+
+        <div class="result-item">
+
+            <div class="label">
+                Recommended Action:
+            </div>
+
+            <p class="value">
+
+                {{ result.recommended_action }}
+
+            </p>
+
+        </div>
 
     </div>
 
+
+
+    <!-- ================================================== -->
+    <!-- 3. RESEARCH DECISION PROCESS -->
+    <!-- ================================================== -->
+
+    <div class="section">
+
+        <h2>
+            3. Research Decision Process
+        </h2>
+
+        <div class="research-box">
+
+            <p>
+                <strong>Step 1:</strong>
+                Logistic Regression predicts the complaint intent.
+            </p>
+
+            <p>
+                <strong>Step 2:</strong>
+                RAG retrieves the most similar complaint
+                from the training knowledge base.
+            </p>
+
+            <p>
+                <strong>Step 3:</strong>
+                FAISS returns the retrieval similarity score.
+            </p>
+
+            <p>
+                <strong>Step 4:</strong>
+                The similarity score is compared with
+                the validation-selected threshold
+                <strong>{{ result.threshold }}</strong>.
+            </p>
+
+            <p>
+                <strong>Step 5:</strong>
+
+                {% if result.decision_source == "RAG Retrieval" %}
+
+                    RAG confidence is high enough,
+                    so the retrieved intent is selected.
+
+                {% else %}
+
+                    RAG confidence is below the threshold,
+                    so the ML classifier prediction is selected.
+
+                {% endif %}
+
+            </p>
+
+        </div>
+
+    </div>
+
+
     {% endif %}
+
+
+
+    <!-- ================================================== -->
+    <!-- 4. MODEL COMPARISON -->
+    <!-- ================================================== -->
+
+    <div class="section">
+
+        <h2>
+            4. Experimental Model Comparison
+        </h2>
+
+        <table>
+
+            <tr>
+
+                <th>
+                    Method
+                </th>
+
+                <th>
+                    Accuracy
+                </th>
+
+                <th>
+                    F1 Score
+                </th>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Logistic Regression
+                </td>
+
+                <td>
+                    97.49%
+                </td>
+
+                <td>
+                    97.50%
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Random Forest
+                </td>
+
+                <td>
+                    97.28%
+                </td>
+
+                <td>
+                    97.29%
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <td>
+                    Training-only RAG
+                </td>
+
+                <td>
+                    95.26%
+                </td>
+
+                <td>
+                    95.26%
+                </td>
+
+            </tr>
+
+
+            <tr class="proposed">
+
+                <td>
+                    Proposed Hybrid ML + RAG
+                </td>
+
+                <td>
+                    97.45%
+                </td>
+
+                <td>
+                    97.45%
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+
+
+    <!-- ================================================== -->
+    <!-- 5. VALIDATION RESULT -->
+    <!-- ================================================== -->
+
+    <div class="section">
+
+        <h2>
+            5. Threshold Optimization
+        </h2>
+
+        <div class="research-box">
+
+            <p>
+                The Hybrid ML + RAG similarity threshold
+                was selected using validation data.
+            </p>
+
+            <p>
+                <strong>
+                    Best Validation Threshold:
+                </strong>
+
+                0.85
+            </p>
+
+            <p>
+                <strong>
+                    Validation Accuracy:
+                </strong>
+
+                97.47%
+            </p>
+
+            <p>
+                <strong>
+                    Validation F1 Score:
+                </strong>
+
+                97.47%
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================================== -->
+    <!-- 6. FINAL TEST RESULT -->
+    <!-- ================================================== -->
+
+    <div class="section">
+
+        <h2>
+            6. Final Unbiased Test Result
+        </h2>
+
+        <div class="research-box">
+
+            <p>
+                <strong>
+                    Selected Threshold:
+                </strong>
+
+                0.85
+            </p>
+
+            <p>
+                <strong>
+                    Accuracy:
+                </strong>
+
+                97.45%
+            </p>
+
+            <p>
+                <strong>
+                    Precision:
+                </strong>
+
+                97.50%
+            </p>
+
+            <p>
+                <strong>
+                    Recall:
+                </strong>
+
+                97.45%
+            </p>
+
+            <p>
+                <strong>
+                    F1 Score:
+                </strong>
+
+                97.45%
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================================== -->
+    <!-- 7. RESEARCH FINDING -->
+    <!-- ================================================== -->
+
+    <div class="section">
+
+        <h2>
+            7. Research Finding
+        </h2>
+
+        <div class="research-box">
+
+            <p>
+                Logistic Regression achieved
+                97.49% classification accuracy.
+            </p>
+
+            <p>
+                The proposed Hybrid ML + RAG framework
+                achieved 97.45% accuracy and
+                97.45% F1 score.
+            </p>
+
+            <p>
+                The Hybrid framework provides
+                comparable classification performance
+                while additionally supporting
+                retrieval-based resolution suggestion,
+                similarity validation and
+                confidence-aware decision making.
+            </p>
+
+            <p>
+                Therefore, the proposed research
+                focuses on improving the practical
+                reliability of customer complaint
+                resolution rather than only
+                maximizing classification accuracy.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================================================== -->
+    <!-- 8. RESEARCH CONTRIBUTION -->
+    <!-- ================================================== -->
+
+    <div class="section">
+
+        <h2>
+            8. Proposed Research Contribution
+        </h2>
+
+        <div class="research-box">
+
+            <p>
+
+                <strong>
+                    Confidence-Aware Hybrid ML + RAG Framework
+                </strong>
+
+            </p>
+
+            <p>
+
+                ML Intent Classification
+                → RAG Retrieval
+                → Similarity Validation
+                → Confidence-Aware Hybrid Decision
+                → Resolution Suggestion
+                → Manual Review Support
+
+            </p>
+
+        </div>
+
+    </div>
+
 
 </div>
 
