@@ -185,3 +185,25 @@ Conclusion
 The proposed Hybrid ML + RAG framework achieved 97.45% accuracy and 97.45% F1 score. Although Logistic Regression achieved slightly higher classification accuracy at 97.49%, the Hybrid framework adds retrieval-based resolution support, similarity-based validation, confidence-aware decision making, and Manual Review handling for unsupported complaints.
 
 Therefore, the primary research contribution is improved decision support and reliability through the integration of ML classification and RAG retrieval rather than a claim of higher classification accuracy.
+
+## Live Deployment
+
+ServiceSense AI is deployed on PythonAnywhere.
+
+Live Demo:
+https://dhaslimn2025.pythonanywhere.com
+
+## Research Results
+
+| Model | Accuracy | F1 Score |
+|---|---:|---:|
+| Logistic Regression | 97.49% | 97.50% |
+| Random Forest | 97.28% | 97.29% |
+| Training-only RAG | 95.26% | 95.26% |
+| Proposed Hybrid ML + RAG | 97.45% | 97.45% |
+
+Validation-selected hybrid threshold: **0.85**
+
+## Research Contribution
+
+The proposed system combines ML classification and RAG-based retrieval with a confidence-aware decision mechanism. It can classify customer complaints, retrieve suitable resolutions, and route unsupported or low-confidence complaints for manual review.
