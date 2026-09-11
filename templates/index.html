@@ -1,396 +1,488 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>ServiceSense AI - Research Demo</title>
+    <title>ServiceSense AI - Flipkart Customer Support Demo</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
 
         body {
-            font-family: Arial, sans-serif;
-            background: #f4f6f8;
             margin: 0;
-            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
         }
+
+        /* HEADER */
+
+        .header {
+            background: #2874f0;
+            color: white;
+            padding: 22px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        .header p {
+            margin: 8px 0 0;
+            font-size: 16px;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 12px;
+            background: #ffcb05;
+            color: #172337;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* MAIN CONTAINER */
 
         .container {
-            width: 80%;
-            max-width: 1050px;
-            margin: 40px auto;
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 0 20px;
         }
 
-        h1 {
-            text-align: center;
-            margin-bottom: 8px;
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 22px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #2874f0;
+            font-size: 22px;
         }
 
         .subtitle {
-            text-align: center;
-            margin-bottom: 8px;
+            color: #6b7280;
+            margin-top: -5px;
+            margin-bottom: 18px;
+            line-height: 1.6;
         }
 
-        .research-title {
-            text-align: center;
-            font-weight: bold;
-            margin-bottom: 30px;
-        }
+        /* FORM */
 
         textarea {
             width: 100%;
-            height: 120px;
-            padding: 12px;
-            font-size: 16px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
+            min-height: 120px;
+            padding: 14px;
+            border: 1px solid #d1d5db;
             border-radius: 8px;
+            font-size: 16px;
             resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #2874f0;
         }
 
         button {
             margin-top: 15px;
-            padding: 12px 25px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            border-radius: 6px;
-            background: #222;
+            background: #fb641b;
             color: white;
-        }
-
-        .section {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 10px;
-        }
-
-        .section h2 {
-            margin-top: 0;
-        }
-
-        .result-item {
-            margin-bottom: 18px;
-        }
-
-        .label {
+            border: none;
+            padding: 13px 24px;
+            border-radius: 7px;
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 5px;
+            cursor: pointer;
         }
 
-        .value {
-            margin: 0;
-            line-height: 1.6;
+        button:hover {
+            opacity: 0.92;
         }
 
-        .research-box {
-            padding: 15px;
-            margin-top: 15px;
+        /* EXAMPLES */
+
+        .examples {
+            margin-top: 20px;
+            background: #f8fafc;
+            padding: 16px;
             border-radius: 8px;
-            background: white;
-            border: 1px solid #ddd;
         }
+
+        .examples h3 {
+            margin-top: 0;
+            font-size: 16px;
+        }
+
+        .example {
+            margin: 8px 0;
+            color: #374151;
+            font-size: 14px;
+        }
+
+        /* RESULTS */
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .result-box {
+            background: #f8fafc;
+            border-left: 4px solid #2874f0;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .result-box .label {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 7px;
+        }
+
+        .result-box .value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #111827;
+            word-break: break-word;
+        }
+
+        .resolution-box {
+            margin-top: 15px;
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 16px;
+            border-radius: 7px;
+        }
+
+        .resolution-box h3 {
+            margin-top: 0;
+            color: #047857;
+        }
+
+        /* DECISION SECTION */
+
+        .decision {
+            padding: 16px;
+            border-radius: 8px;
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+        }
+
+        .decision strong {
+            color: #1d4ed8;
+        }
+
+        /* TABLE */
 
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
-        }
-
-        th,
-        td {
-            padding: 12px;
-            border: 1px solid #ddd;
-            text-align: center;
+            margin-top: 16px;
         }
 
         th {
-            background: #eeeeee;
-        }
-
-        .proposed {
-            font-weight: bold;
-            background: #f1f1f1;
-        }
-
-        .priority-high {
-            font-weight: bold;
-        }
-
-        .priority-normal {
-            font-weight: bold;
-        }
-
-        .decision-box {
+            background: #2874f0;
+            color: white;
             padding: 12px;
-            border: 1px solid #ccc;
-            background: white;
-            border-radius: 7px;
+        }
+
+        td {
+            border: 1px solid #e5e7eb;
+            padding: 11px;
+            text-align: center;
+        }
+
+        tr:nth-child(even) {
+            background: #f9fafb;
+        }
+
+        .highlight-row {
+            background: #ecfdf5 !important;
             font-weight: bold;
+        }
+
+        /* PIPELINE */
+
+        .pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .pipeline-box {
+            padding: 10px 13px;
+            background: #2874f0;
+            color: white;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .arrow {
+            font-weight: bold;
+            color: #6b7280;
+        }
+
+        /* FOOTER */
+
+        .footer {
+            text-align: center;
+            padding: 22px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        @media(max-width: 700px) {
+
+            .result-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
         }
 
     </style>
 
 </head>
 
-
 <body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <h1>ServiceSense AI</h1>
+
+    <p>
+        Intelligent Customer Complaint Classification &
+        Resolution Support for Flipkart E-Commerce
+    </p>
+
+    <div class="badge">
+        Academic Research Demo – Flipkart Use Case
+    </div>
+
+</div>
+
 
 <div class="container">
 
+    <!-- COMPANY USE CASE -->
 
-    <!-- ================================================== -->
-    <!-- TITLE -->
-    <!-- ================================================== -->
+    <div class="card">
 
-    <h1>
-        ServiceSense AI
-    </h1>
+        <h2>Flipkart Customer Support Use Case</h2>
 
-    <p class="subtitle">
-        Intelligent Customer Complaint Classification
-        & Resolution Suggestion System
-    </p>
+        <p class="subtitle">
+            This academic prototype demonstrates how ServiceSense AI can be
+            applied to an e-commerce company such as Flipkart to automatically
+            analyse customer complaints, identify their intent and recommend
+            suitable resolution support.
+        </p>
 
-    <p class="research-title">
-        Research Demo:
-        Confidence-Aware Hybrid ML + RAG Framework
-    </p>
+        <div class="pipeline">
+
+            <div class="pipeline-box">Flipkart Customer Complaint</div>
+
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">TF-IDF</div>
+
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">ML Classification</div>
+
+            <div class="arrow">+</div>
+
+            <div class="pipeline-box">FAISS RAG</div>
+
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">Hybrid Decision</div>
+
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">Resolution Support</div>
+
+        </div>
+
+    </div>
 
 
+    <!-- COMPLAINT INPUT -->
 
-    <!-- ================================================== -->
-    <!-- 1. COMPLAINT INPUT -->
-    <!-- ================================================== -->
+    <div class="card">
 
-    <div class="section">
+        <h2>1. Flipkart Customer Complaint Input</h2>
 
-        <h2>
-            1. Customer Complaint Input
-        </h2>
+        <p class="subtitle">
+            Enter an e-commerce customer-support complaint.
+        </p>
 
-        <form method="POST">
+        <form method="POST" action="/">
 
             <textarea
                 name="complaint"
-                placeholder="Enter customer complaint here..."
-                required>{{ complaint }}</textarea>
-
-            <br>
+                placeholder="Example: Where is my refund? I have not received it yet."
+                required>{{ complaint if complaint else '' }}</textarea>
 
             <button type="submit">
-                Analyze Complaint
+                Analyse Complaint
             </button>
 
         </form>
 
-    </div>
 
+        <div class="examples">
+
+            <h3>Example Flipkart Complaints</h3>
+
+            <div class="example">
+                🛒 Order:
+                I want to change the delivery address for my order.
+            </div>
+
+            <div class="example">
+                💰 Refund:
+                Where is my refund? I have not received it yet.
+            </div>
+
+            <div class="example">
+                💳 Payment:
+                My payment failed but money was deducted from my account.
+            </div>
+
+            <div class="example">
+                📦 Delivery:
+                My order has not been delivered yet.
+            </div>
+
+            <div class="example">
+                🔐 Account:
+                I forgot my password and cannot access my account.
+            </div>
+
+        </div>
+
+    </div>
 
 
     {% if result %}
 
+    <!-- ANALYSIS RESULT -->
 
-    <!-- ================================================== -->
-    <!-- 2. HYBRID ANALYSIS -->
-    <!-- ================================================== -->
+    <div class="card">
 
-    <div class="section">
+        <h2>2. Hybrid ML + RAG Analysis</h2>
 
-        <h2>
-            2. Hybrid ML + RAG Analysis
-        </h2>
+        <div class="result-grid">
 
 
-        <div class="result-item">
+            <div class="result-box">
 
-            <div class="label">
-                Research Method:
+                <div class="label">
+                    Complaint Category
+                </div>
+
+                <div class="value">
+                    {{ result.category }}
+                </div>
+
             </div>
 
-            <p class="value">
-                Confidence-Aware Hybrid ML + RAG
-            </p>
+
+            <div class="result-box">
+
+                <div class="label">
+                    Predicted Intent
+                </div>
+
+                <div class="value">
+                    {{ result.intent }}
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Similarity Score
+                </div>
+
+                <div class="value">
+                    {{ result.similarity }}
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Confidence Level
+                </div>
+
+                <div class="value">
+                    {{ result.confidence }}
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Priority
+                </div>
+
+                <div class="value">
+                    {{ result.priority }}
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Recommended Action
+                </div>
+
+                <div class="value">
+                    {{ result.action }}
+                </div>
+
+            </div>
 
         </div>
 
 
+        <div class="resolution-box">
 
-        <!-- DECISION SOURCE -->
+            <h3>Suggested Flipkart Customer-Support Resolution</h3>
 
-        <div class="result-item">
-
-            <div class="label">
-                Final Decision Source:
-            </div>
-
-            <div class="decision-box">
-
-                {{ result.decision_source }}
-
-            </div>
-
-        </div>
-
-
-
-        <!-- THRESHOLD -->
-
-        <div class="result-item">
-
-            <div class="label">
-                Validation-Selected Threshold:
-            </div>
-
-            <p class="value">
-
-                {{ result.threshold }}
-
-            </p>
-
-        </div>
-
-
-
-        <!-- CATEGORY -->
-
-        <div class="result-item">
-
-            <div class="label">
-                Complaint Category:
-            </div>
-
-            <p class="value">
-
-                {{ result.category }}
-
-            </p>
-
-        </div>
-
-
-
-        <!-- INTENT -->
-
-        <div class="result-item">
-
-            <div class="label">
-                Final Predicted Intent:
-            </div>
-
-            <p class="value">
-
-                {{ result.intent }}
-
-            </p>
-
-        </div>
-
-
-
-        <!-- RESOLUTION -->
-
-        <div class="result-item">
-
-            <div class="label">
-                Retrieved / Suggested Resolution:
-            </div>
-
-            <p class="value">
-
+            <p>
                 {{ result.resolution }}
-
-            </p>
-
-        </div>
-
-
-
-        <!-- SIMILARITY -->
-
-        <div class="result-item">
-
-            <div class="label">
-                Retrieval Similarity Score:
-            </div>
-
-            <p class="value">
-
-                {{ result.similarity }}
-
-            </p>
-
-        </div>
-
-
-
-        <!-- CONFIDENCE -->
-
-        <div class="result-item">
-
-            <div class="label">
-                Confidence Level:
-            </div>
-
-            <p class="value">
-
-                {{ result.confidence }}
-
-            </p>
-
-        </div>
-
-
-
-        <!-- PRIORITY -->
-
-        <div class="result-item">
-
-            <div class="label">
-                Priority:
-            </div>
-
-
-            {% if result.priority == "High" %}
-
-                <p class="value priority-high">
-
-                    {{ result.priority }}
-
-                </p>
-
-            {% else %}
-
-                <p class="value priority-normal">
-
-                    {{ result.priority }}
-
-                </p>
-
-            {% endif %}
-
-        </div>
-
-
-
-        <!-- RECOMMENDED ACTION -->
-
-        <div class="result-item">
-
-            <div class="label">
-                Recommended Action:
-            </div>
-
-            <p class="value">
-
-                {{ result.recommended_action }}
-
             </p>
 
         </div>
@@ -398,162 +490,128 @@
     </div>
 
 
+    <!-- RESEARCH DECISION -->
 
-    <!-- ================================================== -->
-    <!-- 3. RESEARCH DECISION PROCESS -->
-    <!-- ================================================== -->
+    <div class="card">
 
-    <div class="section">
+        <h2>3. Research Decision Process</h2>
 
-        <h2>
-            3. Research Decision Process
-        </h2>
+        <div class="result-grid">
 
-        <div class="research-box">
 
-            <p>
-                <strong>Step 1:</strong>
-                Logistic Regression predicts the complaint intent.
-            </p>
+            <div class="result-box">
 
-            <p>
-                <strong>Step 2:</strong>
-                RAG retrieves the most similar complaint
-                from the training knowledge base.
-            </p>
+                <div class="label">
+                    ML Predicted Intent
+                </div>
 
-            <p>
-                <strong>Step 3:</strong>
-                FAISS returns the retrieval similarity score.
-            </p>
+                <div class="value">
+                    {{ result.ml_intent }}
+                </div>
 
-            <p>
-                <strong>Step 4:</strong>
-                The similarity score is compared with
-                the validation-selected threshold
-                <strong>{{ result.threshold }}</strong>.
-            </p>
+            </div>
 
-            <p>
-                <strong>Step 5:</strong>
 
-                {% if result.decision_source == "RAG Retrieval" %}
+            <div class="result-box">
 
-                    RAG confidence is high enough,
-                    so the retrieved intent is selected.
+                <div class="label">
+                    RAG Predicted Intent
+                </div>
 
-                {% else %}
+                <div class="value">
+                    {{ result.rag_intent }}
+                </div>
 
-                    RAG confidence is below the threshold,
-                    so the ML classifier prediction is selected.
+            </div>
 
-                {% endif %}
 
-            </p>
+            <div class="result-box">
+
+                <div class="label">
+                    ML Confidence
+                </div>
+
+                <div class="value">
+                    {{ result.ml_confidence }}
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    RAG Similarity
+                </div>
+
+                <div class="value">
+                    {{ result.rag_similarity }}
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="decision" style="margin-top:18px;">
+
+            <strong>Selected Decision Path:</strong>
+
+            {{ result.decision_source }}
+
+            <br><br>
+
+            <strong>Validation-selected threshold:</strong>
+
+            {{ result.threshold }}
 
         </div>
 
     </div>
-
 
     {% endif %}
 
 
+    <!-- MODEL COMPARISON -->
 
-    <!-- ================================================== -->
-    <!-- 4. MODEL COMPARISON -->
-    <!-- ================================================== -->
+    <div class="card">
 
-    <div class="section">
+        <h2>4. Experimental Model Comparison</h2>
 
-        <h2>
-            4. Experimental Model Comparison
-        </h2>
+        <p class="subtitle">
+            Research evaluation performed using the customer-support dataset.
+        </p>
 
         <table>
 
             <tr>
-
-                <th>
-                    Method
-                </th>
-
-                <th>
-                    Accuracy
-                </th>
-
-                <th>
-                    F1 Score
-                </th>
-
+                <th>Method</th>
+                <th>Accuracy</th>
+                <th>F1 Score</th>
             </tr>
-
 
             <tr>
-
-                <td>
-                    Logistic Regression
-                </td>
-
-                <td>
-                    97.49%
-                </td>
-
-                <td>
-                    97.50%
-                </td>
-
+                <td>Logistic Regression</td>
+                <td>97.49%</td>
+                <td>97.50%</td>
             </tr>
-
 
             <tr>
-
-                <td>
-                    Random Forest
-                </td>
-
-                <td>
-                    97.28%
-                </td>
-
-                <td>
-                    97.29%
-                </td>
-
+                <td>Random Forest</td>
+                <td>97.28%</td>
+                <td>97.29%</td>
             </tr>
-
 
             <tr>
-
-                <td>
-                    Training-only RAG
-                </td>
-
-                <td>
-                    95.26%
-                </td>
-
-                <td>
-                    95.26%
-                </td>
-
+                <td>Training-only RAG</td>
+                <td>95.26%</td>
+                <td>95.26%</td>
             </tr>
 
-
-            <tr class="proposed">
-
-                <td>
-                    Proposed Hybrid ML + RAG
-                </td>
-
-                <td>
-                    97.45%
-                </td>
-
-                <td>
-                    97.45%
-                </td>
-
+            <tr class="highlight-row">
+                <td>Proposed Hybrid ML + RAG</td>
+                <td>97.45%</td>
+                <td>97.45%</td>
             </tr>
 
         </table>
@@ -561,196 +619,139 @@
     </div>
 
 
+    <!-- THRESHOLD -->
 
-    <!-- ================================================== -->
-    <!-- 5. VALIDATION RESULT -->
-    <!-- ================================================== -->
+    <div class="card">
 
-    <div class="section">
+        <h2>5. Threshold Optimization</h2>
 
-        <h2>
-            5. Threshold Optimization
-        </h2>
+        <p>
+            The RAG similarity threshold was selected using validation data.
+        </p>
 
-        <div class="research-box">
+        <div class="result-grid">
 
-            <p>
-                The Hybrid ML + RAG similarity threshold
-                was selected using validation data.
-            </p>
+            <div class="result-box">
 
-            <p>
-                <strong>
-                    Best Validation Threshold:
-                </strong>
+                <div class="label">
+                    Selected Threshold
+                </div>
 
-                0.85
-            </p>
+                <div class="value">
+                    0.85
+                </div>
 
-            <p>
-                <strong>
-                    Validation Accuracy:
-                </strong>
+            </div>
 
-                97.47%
-            </p>
 
-            <p>
-                <strong>
-                    Validation F1 Score:
-                </strong>
+            <div class="result-box">
 
-                97.47%
-            </p>
+                <div class="label">
+                    Validation F1 Score
+                </div>
+
+                <div class="value">
+                    97.47%
+                </div>
+
+            </div>
 
         </div>
 
     </div>
 
 
+    <!-- FINAL TEST -->
 
-    <!-- ================================================== -->
-    <!-- 6. FINAL TEST RESULT -->
-    <!-- ================================================== -->
+    <div class="card">
 
-    <div class="section">
+        <h2>6. Final Unbiased Test Result</h2>
 
-        <h2>
-            6. Final Unbiased Test Result
-        </h2>
+        <div class="result-grid">
 
-        <div class="research-box">
+            <div class="result-box">
+                <div class="label">Accuracy</div>
+                <div class="value">97.45%</div>
+            </div>
 
-            <p>
-                <strong>
-                    Selected Threshold:
-                </strong>
+            <div class="result-box">
+                <div class="label">Precision</div>
+                <div class="value">97.50%</div>
+            </div>
 
-                0.85
-            </p>
+            <div class="result-box">
+                <div class="label">Recall</div>
+                <div class="value">97.45%</div>
+            </div>
 
-            <p>
-                <strong>
-                    Accuracy:
-                </strong>
-
-                97.45%
-            </p>
-
-            <p>
-                <strong>
-                    Precision:
-                </strong>
-
-                97.50%
-            </p>
-
-            <p>
-                <strong>
-                    Recall:
-                </strong>
-
-                97.45%
-            </p>
-
-            <p>
-                <strong>
-                    F1 Score:
-                </strong>
-
-                97.45%
-            </p>
+            <div class="result-box">
+                <div class="label">F1 Score</div>
+                <div class="value">97.45%</div>
+            </div>
 
         </div>
 
     </div>
 
 
+    <!-- FINDING -->
 
-    <!-- ================================================== -->
-    <!-- 7. RESEARCH FINDING -->
-    <!-- ================================================== -->
+    <div class="card">
 
-    <div class="section">
+        <h2>7. Research Finding</h2>
 
-        <h2>
-            7. Research Finding
-        </h2>
+        <p>
+            Logistic Regression achieved the highest standalone classification
+            accuracy of <strong>97.49%</strong>.
+        </p>
 
-        <div class="research-box">
-
-            <p>
-                Logistic Regression achieved
-                97.49% classification accuracy.
-            </p>
-
-            <p>
-                The proposed Hybrid ML + RAG framework
-                achieved 97.45% accuracy and
-                97.45% F1 score.
-            </p>
-
-            <p>
-                The Hybrid framework provides
-                comparable classification performance
-                while additionally supporting
-                retrieval-based resolution suggestion,
-                similarity validation and
-                confidence-aware decision making.
-            </p>
-
-            <p>
-                Therefore, the proposed research
-                focuses on improving the practical
-                reliability of customer complaint
-                resolution rather than only
-                maximizing classification accuracy.
-            </p>
-
-        </div>
+        <p>
+            The proposed Hybrid ML + RAG framework achieved
+            <strong>97.45%</strong> accuracy while additionally providing
+            retrieval-based resolution support and confidence-aware decision
+            making.
+        </p>
 
     </div>
 
 
+    <!-- CONTRIBUTION -->
 
-    <!-- ================================================== -->
-    <!-- 8. RESEARCH CONTRIBUTION -->
-    <!-- ================================================== -->
+    <div class="card">
 
-    <div class="section">
+        <h2>8. Proposed Research Contribution</h2>
 
-        <h2>
-            8. Proposed Research Contribution
-        </h2>
+        <p>
+            The proposed system combines ML intent classification,
+            FAISS-based RAG retrieval and confidence-aware decision making
+            for e-commerce customer-support complaints.
+        </p>
 
-        <div class="research-box">
+        <p>
+            Complaints with reliable retrieval matches can use the RAG path,
+            supported complaints can use the ML classifier, and unsupported
+            or low-confidence complaints can be sent for manual review.
+        </p>
 
-            <p>
-
-                <strong>
-                    Confidence-Aware Hybrid ML + RAG Framework
-                </strong>
-
-            </p>
-
-            <p>
-
-                ML Intent Classification
-                → RAG Retrieval
-                → Similarity Validation
-                → Confidence-Aware Hybrid Decision
-                → Resolution Suggestion
-                → Manual Review Support
-
-            </p>
-
-        </div>
+        <p>
+            For this demonstration, the framework is presented as a
+            <strong>Flipkart e-commerce customer-support use case</strong>.
+        </p>
 
     </div>
 
 
 </div>
 
-</body>
 
+<div class="footer">
+
+    ServiceSense AI |
+    Academic Research Prototype |
+    Flipkart E-Commerce Use Case
+
+</div>
+
+
+</body>
 </html>

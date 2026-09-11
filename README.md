@@ -1,209 +1,437 @@
-ServiceSense AI
+# ServiceSense AI
 
-Intelligent Customer Complaint Classification & Resolution Suggestion System
+## Intelligent Customer Complaint Classification & Resolution Suggestion System
 
-Research-Based Confidence-Aware Hybrid ML + RAG Framework
+ServiceSense AI is a research-based customer-support system that combines Machine Learning and Retrieval-Augmented Generation (RAG) for complaint classification and resolution support.
 
-ServiceSense AI is a research-oriented customer complaint analysis system that combines Machine Learning (ML) and Retrieval-Augmented Generation (RAG) for complaint intent classification and resolution support.
+The application demonstrates the proposed framework using a **Flipkart e-commerce customer-support use case**.
 
-The system uses Logistic Regression for complaint intent classification and TF-IDF with FAISS for retrieving similar historical complaints and their associated resolutions. A validation-selected similarity threshold of 0.85 is used by the proposed hybrid framework to decide between RAG Retrieval and ML Classification. Unsupported or low-confidence complaints can be routed to Manual Review.
+> **Academic Note:** Flipkart is used only as an e-commerce demonstration use case. This project does not use internal Flipkart data and is not affiliated with Flipkart.
 
-Research Problem
+---
 
-Traditional ML-based complaint systems can classify customer intents accurately, but they do not directly retrieve relevant historical resolutions. RAG-based retrieval can provide resolution support, but low-similarity retrieval may produce unreliable results.
+## Project Objective
 
-ServiceSense AI addresses this problem using a confidence-aware hybrid decision framework.
+The main objectives of ServiceSense AI are:
 
-Research Objectives
+- Classify customer complaints automatically.
+- Identify the intent of a customer complaint.
+- Retrieve relevant complaint-resolution knowledge.
+- Suggest an appropriate resolution.
+- Compare traditional Machine Learning models with RAG.
+- Develop a confidence-aware Hybrid ML + RAG framework.
+- Send unsupported or uncertain complaints for manual review.
+- Demonstrate the research framework through a Flask web application.
 
-Develop a customer complaint intent classifier using Machine Learning.
+---
 
-Integrate RAG-based retrieval for similar historical complaints and resolutions.
+## Dataset
 
-Develop a Confidence-Aware Hybrid ML + RAG framework.
+The project uses a publicly available customer-support dataset for academic research.
 
-Select the RAG similarity threshold using validation data.
+Dataset file:
 
-Compare Logistic Regression, Random Forest, Training-only RAG, and Hybrid ML + RAG.
+```text
+data/ServiceSense.csv
+```
 
-Route unsupported or low-confidence complaints to Manual Review.
+The dataset contains approximately **26,872 customer-support records**.
 
-Evaluate models using Accuracy, Precision, Recall, and F1 Score.
+Important fields used in the project:
 
-Proposed Method
+- `instruction` — customer complaint/request
+- `category` — complaint category
+- `intent` — customer intent
+- `response` — corresponding support response
 
-The research pipeline follows:
+The research dataset contains **11 categories and 27 intents**.
 
-Customer Complaint → TF-IDF → ML Classification + FAISS RAG Retrieval → Similarity Evaluation → Confidence-Aware Hybrid Decision → Final Intent → Resolution Suggestion
+---
 
-Decision logic:
+## Research Methodology
 
-Similarity ≥ 0.85 → RAG Retrieval
+The research compares four approaches:
 
-Similarity < 0.85 → ML Classifier
+1. Logistic Regression
+2. Random Forest
+3. Training-only RAG
+4. Confidence-Aware Hybrid ML + RAG
 
-Unsupported / very low-confidence complaint → Manual Review
+TF-IDF is used for text representation.
 
-The threshold of 0.85 was selected using validation data before final test evaluation.
+FAISS is used for similarity-based retrieval in the RAG component.
 
-Final Research Results
+The Hybrid framework combines ML classification and RAG retrieval using a validation-selected confidence threshold.
 
-Method
+---
 
-Accuracy
+## System Architecture
 
-F1 Score
-
-Logistic Regression
-
-97.49%
-
-97.50%
-
-Random Forest
-
-97.28%
-
-97.29%
-
-Training-only RAG
-
-95.26%
-
-95.26%
-
-Proposed Hybrid ML + RAG
-
-97.45%
-
-97.45%
-
-Logistic Regression achieved the highest standalone classification accuracy. The proposed Hybrid framework provides comparable classification performance while adding retrieval-based resolution support and confidence-aware routing.
-
-Statistical Analysis
-
-McNemar's test was used to compare Logistic Regression and the Hybrid ML + RAG approach.
-
-Logistic Regression correct / Hybrid wrong: 84
-
-Logistic Regression wrong / Hybrid correct: 47
-
-P-value: 0.001558
-
-The paired prediction difference is statistically significant. The result does not show that the Hybrid classifier is superior in classification accuracy; its research value is in combining classification with retrieval-based resolution support and confidence-aware decision making.
-
-Research Contribution
-
-The main contribution of ServiceSense AI is a Confidence-Aware Hybrid ML + RAG framework that:
-
-Combines ML intent classification with retrieval-based complaint analysis.
-
-Uses a validation-selected similarity threshold for dynamic decision making.
-
-Retrieves relevant historical resolution information.
-
-Routes unsupported complaints to Manual Review instead of forcing an unreliable automated prediction.
-
-Integrates classification, retrieval, confidence evaluation, and resolution support into one pipeline.
-
-Research Demo Scenarios
-
-The application demonstrates three decision paths:
-
-RAG Retrieval — used when retrieval similarity is at or above the selected threshold.
-
-ML Classifier — used when a complaint is supported but RAG similarity is below the threshold.
-
-Manual Review — used for unsupported or very low-confidence complaints.
-
-Technologies Used
-
-Python
-
-Jupyter Notebook
-
-Flask
-
-Scikit-learn
-
-Logistic Regression
-
-Random Forest
-
-TF-IDF
-
-FAISS
-
-Pandas
-
-NumPy
-
-MLflow
-
-Git / GitHub
-
-Main Research Notebook
-
-ServiceSense_AI_Research.ipynb
-
-The notebook contains the complete research workflow, including:
-
-Problem statement and research gap
-
-Research objectives
-
-Dataset preparation
-
-Baseline ML experiments
-
-Training-only RAG evaluation
-
-Validation-based threshold selection
-
-Final Hybrid ML + RAG evaluation
-
-Model comparison
-
-McNemar statistical significance test
-
-Intent confusion analysis
-
-Research findings
-
-Novelty and contribution
-
-Limitations and future work
-
-Final research conclusion
-
-Important Note
-
-The Training-only RAG evaluation uses only training data to construct the retrieval knowledge base. This avoids test-data leakage and provides a fair research evaluation.
-
-Conclusion
-
-The proposed Hybrid ML + RAG framework achieved 97.45% accuracy and 97.45% F1 score. Although Logistic Regression achieved slightly higher classification accuracy at 97.49%, the Hybrid framework adds retrieval-based resolution support, similarity-based validation, confidence-aware decision making, and Manual Review handling for unsupported complaints.
-
-Therefore, the primary research contribution is improved decision support and reliability through the integration of ML classification and RAG retrieval rather than a claim of higher classification accuracy.
-
-## Live Deployment
-
-ServiceSense AI is deployed on PythonAnywhere.
-
-Live Demo:
-https://dhaslimn2025.pythonanywhere.com
-
-## Research Results
+```text
+Customer Complaint
+        |
+        v
+Text Preprocessing
+        |
+        v
+      TF-IDF
+        |
+        +-------------------------+
+        |                         |
+        v                         v
+ML Classification           RAG Retrieval
+(Logistic Regression)       (TF-IDF + FAISS)
+        |                         |
+        v                         v
+ML Intent + Confidence      Similar Complaint +
+                            Similarity + Resolution
+        |                         |
+        +------------+------------+
+                     |
+                     v
+        Confidence-Aware Hybrid Decision
+              Threshold = 0.85
+                     |
+             +-------+-------+
+             |               |
+             v               v
+      Accepted Result    Low Confidence /
+                         Unsupported
+             |               |
+             v               v
+ Category + Intent      Manual Review
+ + Resolution
+ + Priority
+ + Recommended Action
+```
+
+---
+
+## Experimental Results
 
 | Model | Accuracy | F1 Score |
 |---|---:|---:|
 | Logistic Regression | 97.49% | 97.50% |
 | Random Forest | 97.28% | 97.29% |
 | Training-only RAG | 95.26% | 95.26% |
-| Proposed Hybrid ML + RAG | 97.45% | 97.45% |
+| Hybrid ML + RAG | 97.45% | 97.45% |
 
-Validation-selected hybrid threshold: **0.85**
+### Threshold Optimization
+
+The Hybrid decision threshold was selected using validation experiments.
+
+```text
+Best Threshold = 0.85
+Validation F1 Score = 97.47%
+```
+
+### Final Unbiased Hybrid Test Result
+
+```text
+Accuracy  = 97.45%
+Precision = 97.50%
+Recall    = 97.45%
+F1 Score  = 97.45%
+```
+
+The Logistic Regression model achieved slightly higher pure classification performance than the Hybrid model.
+
+The contribution of the Hybrid approach is not simply higher classification accuracy. It provides additional retrieval-based resolution support, confidence-aware decision making, and manual-review handling for unsupported complaints.
+
+---
+
+## Flipkart E-Commerce Demonstration
+
+The Flask prototype demonstrates how ServiceSense AI can be applied to an e-commerce customer-support environment such as Flipkart.
+
+Example complaint types include:
+
+- Order-related complaints
+- Delivery and tracking issues
+- Payment problems
+- Refund requests
+- Order cancellation
+- Account and password issues
+- Damaged or incorrect product return requests
+
+The demo also contains domain safety handling for clear delivery and return-related complaints.
+
+These demonstration rules are application-level safety features and are **not used to calculate the reported research evaluation metrics**.
+
+---
+
+## Technology Stack
+
+### Programming
+
+```text
+Python
+```
+
+### Machine Learning
+
+```text
+Scikit-learn
+Logistic Regression
+Random Forest
+```
+
+### NLP and RAG
+
+```text
+TF-IDF
+FAISS
+Retrieval-Augmented Generation (RAG)
+```
+
+### Web Application
+
+```text
+Flask
+HTML
+CSS
+```
+
+### MLOps and Version Control
+
+```text
+MLflow
+Git
+GitHub
+```
+
+### Deployment
+
+```text
+Docker
+```
+
+### Development Environment
+
+```text
+VS Code
+Jupyter Notebook
+```
+
+---
+
+## Project Structure
+
+```text
+ServiceSense_AI/
+│
+├── data/
+│   └── ServiceSense.csv
+│
+├── models/
+│   ├── intent_classifier.pkl
+│   ├── tfidf_vectorizer.pkl
+│   ├── rag_tfidf_vectorizer.pkl
+│   └── complaints_faiss.index
+│
+├── templates/
+│   └── index.html
+│
+├── app.py
+├── requirements.txt
+├── Dockerfile
+├── .dockerignore
+├── .gitignore
+├── ServiceSense_AI.ipynb
+├── ServiceSense_AI_Research.ipynb
+└── README.md
+```
+
+---
+
+## Run Locally
+
+Install the required Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the Flask application:
+
+```bash
+python app.py
+```
+
+Open:
+
+```text
+http://127.0.0.1:5000
+```
+
+---
+
+# Docker Deployment
+
+ServiceSense AI is containerized and deployed using **Docker**.
+
+## 1. Check Docker
+
+```bash
+docker --version
+```
+
+## 2. Build Docker Image
+
+From the ServiceSense AI project directory:
+
+```bash
+docker build -t servicesense-ai .
+```
+
+## 3. Run Docker Container
+
+```bash
+docker run --name servicesense-container -p 5000:5000 servicesense-ai
+```
+
+Open the application:
+
+```text
+http://127.0.0.1:5000
+```
+
+## 4. Check Running Container
+
+```bash
+docker ps
+```
+
+The container should appear as:
+
+```text
+servicesense-container
+```
+
+## 5. Stop Container
+
+```bash
+docker stop servicesense-container
+```
+
+## 6. Start Container Again
+
+```bash
+docker start servicesense-container
+```
+
+## 7. Automatic Restart
+
+Configure the ServiceSense AI container to restart automatically when Docker restarts:
+
+```bash
+docker update --restart unless-stopped servicesense-container
+```
+
+Verify the restart policy:
+
+```bash
+docker inspect -f "{{.HostConfig.RestartPolicy.Name}}" servicesense-container
+```
+
+Expected output:
+
+```text
+unless-stopped
+```
+
+---
+
+## REST API
+
+ServiceSense AI also provides a REST API.
+
+### Prediction Endpoint
+
+```text
+POST /api/predict
+```
+
+Example JSON request:
+
+```json
+{
+  "complaint": "My payment failed but money was deducted from my account."
+}
+```
+
+The API returns information such as:
+
+```text
+Complaint Category
+Predicted Intent
+Suggested Resolution
+Similarity Score
+Confidence Level
+Priority
+Recommended Action
+ML Intent
+RAG Intent
+ML Confidence
+RAG Similarity
+Decision Source
+Validation Threshold
+```
+
+---
+
+## Health Check
+
+Health endpoint:
+
+```text
+GET /api/health
+```
+
+Local URL:
+
+```text
+http://127.0.0.1:5000/api/health
+```
+
+---
 
 ## Research Contribution
 
-The proposed system combines ML classification and RAG-based retrieval with a confidence-aware decision mechanism. It can classify customer complaints, retrieve suitable resolutions, and route unsupported or low-confidence complaints for manual review.
+The proposed ServiceSense AI framework provides:
+
+- Comparative evaluation of traditional ML and RAG.
+- Confidence-aware Hybrid ML + RAG decision making.
+- Validation-based threshold selection.
+- Retrieval-based customer resolution support.
+- Manual review for unsupported complaints.
+- Explainable ML and RAG decision information.
+- An e-commerce application prototype demonstrating the research framework.
+
+---
+
+## Important Research Note
+
+The reported experimental results were obtained from the controlled research evaluation.
+
+The Docker-based Flipkart demonstration is the **application prototype** used to demonstrate the proposed framework.
+
+Application-level safety rules added to the demo do not replace or modify the original research evaluation results.
+
+---
+
+## Project Type
+
+**Research-Based Project with Application Prototype**
+
+### Project
+
+**ServiceSense AI — Intelligent Customer Complaint Classification & Resolution Suggestion System**
+
+### Demonstration Use Case
+
+**Flipkart E-Commerce Customer Support**
+
+### Deployment
+
+**Docker**
