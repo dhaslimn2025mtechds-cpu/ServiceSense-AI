@@ -1,0 +1,301 @@
+query,true_intent,top1_intent,relevant_rank,hit_at_1,hit_at_3,hit_at_5,reciprocal_rank
+hoe can i check the withdrawal penalties,check_cancellation_fee,check_cancellation_fee,1,True,True,True,1.0
+notify of issues with signup,registration_problems,registration_problems,1,True,True,True,1.0
+shipments to {{Delivery City}},delivery_options,delivery_options,1,True,True,True,1.0
+i expect a compensation of {{Currency Symbol}}{{Refund Amount}},track_refund,track_refund,1,True,True,True,1.0
+need support tryinmg to change the address,change_shipping_address,change_shipping_address,1,True,True,True,1.0
+what do I need to do to call cusromer support?,contact_customer_service,contact_customer_service,1,True,True,True,1.0
+there is an error submitting my secondary delivery address,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+can I unsubscribe to the corporate newsletter?,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+i need information about correcting purchase {{Order Number}},change_order,change_order,1,True,True,True,1.0
+I don't know how I can track my rebate,track_refund,track_refund,1,True,True,True,1.0
+problem with the removal of my {{Account Category}} account,delete_account,delete_account,1,True,True,True,1.0
+"the damn shipping address has changed, can I correct it?",change_shipping_address,change_shipping_address,1,True,True,True,1.0
+what do i need to do to swigch to the standard account,switch_account,switch_account,1,True,True,True,1.0
+want assistance to update the address,change_shipping_address,change_shipping_address,1,True,True,True,1.0
+could i file an customer claim,complaint,complaint,1,True,True,True,1.0
+helpme check your refund policy,check_refund_policy,check_refund_policy,1,True,True,True,1.0
+need to make a consumere claim,complaint,complaint,1,True,True,True,1.0
+modify data on standard account,edit_account,edit_account,1,True,True,True,1.0
+modify information on {{Account Category}} account,edit_account,edit_account,1,True,True,True,1.0
+help seeing what damn methods for delivery you offer,delivery_options,delivery_options,1,True,True,True,1.0
+i need assistance to check the eta of the order {{Order Number}},track_order,track_order,1,True,True,True,1.0
+i dont know what to do to call customer support,contact_customer_service,contact_customer_service,1,True,True,True,1.0
+can i see in what situations can i ask for reimbursements,check_refund_policy,check_refund_policy,1,True,True,True,1.0
+can I order from {{Delivery Country}}?,delivery_options,delivery_options,1,True,True,True,1.0
+can ya help em inform of a trouble with online payments,payment_issue,payment_issue,1,True,True,True,1.0
+I don't know how I can shop some items,place_order,place_order,1,True,True,True,1.0
+I am trying to find my invoices from {{Person Name}},check_invoice,check_invoice,1,True,True,True,1.0
+how to subscribe to the newsletter?,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+I have to report payment issues,payment_issue,payment_issue,1,True,True,True,1.0
+will you show me the accepted payment options?,check_payment_methods,check_payment_methods,1,True,True,True,1.0
+where is order {{Order Number}}?,track_order,track_order,1,True,True,True,1.0
+how to se your available payment modalities?,check_payment_methods,check_payment_methods,1,True,True,True,1.0
+I'm trying to speak to a person,contact_human_agent,contact_human_agent,1,True,True,True,1.0
+I do not know how to open a {{Account Type}} account for my daughter,create_account,create_account,1,True,True,True,1.0
+i expect a compensqtion of {{Refund Amount}} dollars,track_refund,track_refund,1,True,True,True,1.0
+i dont know how to give a quick look at bill #37777,check_invoice,check_invoice,1,True,True,True,1.0
+I don't know how I can speak to an agent,contact_human_agent,contact_human_agent,1,True,True,True,1.0
+problem with {{Account Type}} account deletions,delete_account,delete_account,1,True,True,True,1.0
+i dont know what i have to do to delete my {{Account Category}} account,delete_account,delete_account,1,True,True,True,1.0
+hjow to use the gold profile?,switch_account,switch_account,1,True,True,True,1.0
+correcting info on standard aqccount,edit_account,edit_account,1,True,True,True,1.0
+need help to unsubscribe from your corporate newsletter,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+help me inform of an error with online payment,payment_issue,payment_issue,1,True,True,True,1.0
+ordr several of ur product,place_order,place_order,1,True,True,True,1.0
+I want help seeing in which cases can I ask to be refunded,check_refund_policy,check_refund_policy,1,True,True,True,1.0
+I need assistance to enter another shipping address,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+get invoice #85632,get_invoice,get_invoice,1,True,True,True,1.0
+I want to buy an article,place_order,place_order,1,True,True,True,1.0
+I need to speak with a person,contact_human_agent,contact_human_agent,1,True,True,True,1.0
+i do not know how i can find bill #00108,check_invoice,check_invoice,1,True,True,True,1.0
+how do i check the current status of the reimbursement,track_refund,track_refund,1,True,True,True,1.0
+hsipping to {{Delivery Country}},delivery_options,delivery_options,1,True,True,True,1.0
+can i see what payment payment modalities are available,check_payment_methods,check_payment_methods,1,True,True,True,1.0
+I need help to check your allowed payment options,check_payment_methods,check_payment_methods,1,True,True,True,1.0
+can I check when my article is going to arrive?,delivery_period,delivery_period,1,True,True,True,1.0
+"I cannot sign up, assistance reporting fucking signup issues",registration_problems,registration_problems,1,True,True,True,1.0
+need to submit my feedback for a service can uhelp me,review,review,1,True,True,True,1.0
+help me to set my new shipping address up,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+I expect a reufnd of {{Currency Symbol}}{{Refund Amount}},track_refund,track_refund,1,True,True,True,1.0
+where can I get information about a {{Account Type}} account deletion?,delete_account,delete_account,1,True,True,True,1.0
+I don't know what to do to lodge a complaint,complaint,complaint,1,True,True,True,1.0
+I do not know what to do to get invoice #00108,get_invoice,get_invoice,1,True,True,True,1.0
+can you help me locate the invoice #37777?,check_invoice,check_invoice,1,True,True,True,1.0
+I want to retrieve the password of my user account,recover_password,recover_password,1,True,True,True,1.0
+need to check what methods for delivery i can choose help me,delivery_options,delivery_options,1,True,True,True,1.0
+I don't know how to make a claim against your organization,complaint,complaint,1,True,True,True,1.0
+need assistance to notify of issues with online payment,payment_issue,payment_issue,1,True,True,True,1.0
+help me speaking with an assistant,contact_human_agent,contact_human_agent,1,True,True,True,1.0
+uhave a mail address to get in touch with customer support,contact_customer_service,contact_customer_service,1,True,True,True,1.0
+how can i tfack purchase {{Order Number}},track_order,track_order,1,True,True,True,1.0
+is it possible to notify of a registration problem?,registration_problems,registration_problems,1,True,True,True,1.0
+chcek order {{Order Number}} current status,track_order,track_order,1,True,True,True,1.0
+"I no longer need the {{Account Type}} account, I want to delete it",delete_account,delete_account,1,True,True,True,1.0
+how could I use the {{Account Category}} profile?,switch_account,switch_account,1,True,True,True,1.0
+I try to notify of an error with online payments,payment_issue,payment_issue,1,True,True,True,1.0
+where to know if there is anything new on the rebate,track_refund,track_refund,1,True,True,True,1.0
+wanna check what payment methods uaccept,check_payment_methods,check_payment_methods,1,True,True,True,1.0
+want help to contact customer service,contact_customer_service,contact_customer_service,1,True,True,True,1.0
+i want assistance removing my damn {{Account Type}} account,delete_account,delete_account,1,True,True,True,1.0
+"I put the old address by mistake, how do I modify it?",change_shipping_address,change_shipping_address,1,True,True,True,1.0
+"someone has stolen my user PIN code , how can I reset it?",recover_password,recover_password,1,True,True,True,1.0
+I want help to check what shipping methods are there,delivery_options,delivery_options,1,True,True,True,1.0
+I am waiting for a rebate of {{Refund Amount}} dollars,track_refund,track_refund,1,True,True,True,1.0
+i have to rewet my fucking user pin i need assistance,recover_password,recover_password,1,True,True,True,1.0
+wanna know more about the shipping period,delivery_period,delivery_period,1,True,True,True,1.0
+need to unsubscribe from the newsletter,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+assistance sending my feedback about ur services,review,review,1,True,True,True,1.0
+how do I see the goddamn ETA of order {{Order Number}}?,track_order,track_order,1,True,True,True,1.0
+editing {{Account Type}}  account,edit_account,edit_account,1,True,True,True,1.0
+can you help me see how soon can I expect my item?,delivery_period,delivery_period,1,True,True,True,1.0
+I have a problem updating the delivery address,change_shipping_address,change_shipping_address,1,True,True,True,1.0
+could ya help me locae purchase {{Order Number}},track_order,track_order,1,True,True,True,1.0
+help me use the {{Account Category}} profile,switch_account,switch_account,1,True,True,True,1.0
+I need to swap an item of purchase {{Order Number}},change_order,change_order,1,True,True,True,1.0
+wanna get the bil from {{Person Name}} will uhelp me,get_invoice,get_invoice,1,True,True,True,1.0
+I try to notify of errors with online payment,payment_issue,payment_issue,1,True,True,True,1.0
+I want assistance to download my bill #85632,get_invoice,get_invoice,1,True,True,True,1.0
+I don't know what I need to do to check my invoice #00108,check_invoice,check_invoice,1,True,True,True,1.0
+get bills from {{Person Name}},get_invoice,get_invoice,1,True,True,True,1.0
+is it possible to purchase a few of your article?,place_order,place_order,1,True,True,True,1.0
+question about the cancellation of a {{Account Category}} account,delete_account,delete_account,1,True,True,True,1.0
+i do not know what to do to download the invoice #37777,get_invoice,get_invoice,1,True,True,True,1.0
+is it possible to ordet from {{Delivery Country}},delivery_options,delivery_options,1,True,True,True,1.0
+tell me more about unsubscribing from your newsletter,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+how could I check what shipping options are available?,delivery_options,delivery_options,1,True,True,True,1.0
+want assistance notifying of an error with payments,payment_issue,payment_issue,1,True,True,True,1.0
+I acn't unsubscribe to your company newsletter,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+where to submit a new delivery address?,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+I need to open a {{Account Type}} account,create_account,create_account,1,True,True,True,1.0
+I have got to rfetrieve the key of my account,recover_password,recover_password,1,True,True,True,1.0
+I don't know what I have to do to reset my pass,recover_password,recover_password,1,True,True,True,1.0
+"I need to check the termination charge, can you help me?",check_cancellation_fee,check_cancellation_fee,1,True,True,True,1.0
+"I have to earn several products, how can I do it?",place_order,place_order,1,True,True,True,1.0
+order 113542617735902current status,track_order,track_order,1,True,True,True,1.0
+Ihave to receive the newsletter,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+download bill from {{Person Name}},get_invoice,get_invoice,1,True,True,True,1.0
+I want help to leave a goddamn comment about your company,review,review,1,True,True,True,1.0
+i need help notifying of registration issues,registration_problems,registration_problems,1,True,True,True,1.0
+I cannot edit my shipping address,change_shipping_address,change_shipping_address,1,True,True,True,1.0
+help me checking if there are any news on my refund,track_refund,track_refund,1,True,True,True,1.0
+help me to download the bill #37777,get_invoice,get_invoice,1,True,True,True,1.0
+I can no longer pay for order {{Order Number}},cancel_order,cancel_order,1,True,True,True,1.0
+can ya help me list the available payment modalities,check_payment_methods,check_payment_methods,1,True,True,True,1.0
+I do not know what I have to do to cancel a {{Account Category}} account,delete_account,delete_account,1,True,True,True,1.0
+I want help to download bill #12588,get_invoice,get_invoice,1,True,True,True,1.0
+is it possible to lodge a customer claim,complaint,complaint,1,True,True,True,1.0
+would it be possible to retrieve my user account access key?,recover_password,recover_password,1,True,True,True,1.0
+I need assistance subscribing to the corporate newsletter,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+I want to know about a bloody shipping address modification,change_shipping_address,change_shipping_address,1,True,True,True,1.0
+I have to check the termination fees,check_cancellation_fee,check_cancellation_fee,1,True,True,True,1.0
+need to restore the pass of my user account,recover_password,recover_password,1,True,True,True,1.0
+want assistance leaving some feedback about a service,review,review,1,True,True,True,1.0
+notify of online registration issues,registration_problems,registration_problems,1,True,True,True,1.0
+assistance taking a quick look at the bill #00108,check_invoice,check_invoice,1,True,True,True,1.0
+there is a problem entering my delivery address,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+help to give a quick look at my invoice #37777,check_invoice,check_invoice,1,True,True,True,1.0
+is it possible to place an order from {{Delivery City}}?,delivery_options,delivery_options,1,True,True,True,1.0
+I exxpect a rebate of {{Currency Symbol}}{{Refund Amount}},track_refund,track_refund,1,True,True,True,1.0
+i habe a problem with my pin retrieval,recover_password,recover_password,1,True,True,True,1.0
+I cannot see the current status of purchase {{Order Number}},track_order,track_order,1,True,True,True,1.0
+help me give a quick look at my bill #12588,check_invoice,check_invoice,1,True,True,True,1.0
+I cannot speak to a person,contact_human_agent,contact_human_agent,1,True,True,True,1.0
+I don't know how I can see the early termination penalties,check_cancellation_fee,check_cancellation_fee,1,True,True,True,1.0
+"I want to correct the info on my account, how do I do it?",edit_account,edit_account,1,True,True,True,1.0
+I don't know how I can earn an article,place_order,place_order,1,True,True,True,1.0
+i do not know what i need to do to remove my {{Account Type}} account,delete_account,delete_account,1,True,True,True,1.0
+what do I need to do to see the ETA of purchase {{Order Number}}?,track_order,track_order,1,True,True,True,1.0
+how do I cancel the subscription to the newsletter?,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+mail me bill #37777,get_invoice,get_invoice,1,True,True,True,1.0
+I cannot submit a secondary delivery address,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+could you help me to see the withdrawal charges?,check_cancellation_fee,check_cancellation_fee,1,True,True,True,1.0
+assistance to check the current status of order {{Order Number}},track_order,track_order,1,True,True,True,1.0
+I do not know how to recover the PIN code of my user account,recover_password,recover_password,1,True,True,True,1.0
+I have to change the delivery adfress,change_shipping_address,change_shipping_address,1,True,True,True,1.0
+I do not know how  I can reset my access key,recover_password,recover_password,1,True,True,True,1.0
+i do not know how to create a {{Account Type}} account for my dad,create_account,create_account,1,True,True,True,1.0
+help me set up the secondary delivery address,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+i try to talk to a perrson,contact_human_agent,contact_human_agent,1,True,True,True,1.0
+question about canceling order {{Order Number}},cancel_order,cancel_order,1,True,True,True,1.0
+could you help me to correct my shipping address?,change_shipping_address,change_shipping_address,1,True,True,True,1.0
+i do not know how i could see ur payment modalities,check_payment_methods,check_payment_methods,1,True,True,True,1.0
+I can't check the ETA of the orfer {{Order Number}},track_order,track_order,1,True,True,True,1.0
+"I want to earn a product, how can I do iut?",place_order,place_order,1,True,True,True,1.0
+I do not know what I need tp do to recover my user pwd,recover_password,recover_password,1,True,True,True,1.0
+updating info on {{Account Category}} account,edit_account,edit_account,1,True,True,True,1.0
+can I modify purchase {{Order Number}}?,change_order,change_order,1,True,True,True,1.0
+where to know if there are any news on my compensation?,track_refund,track_refund,1,True,True,True,1.0
+how can I unsubscribe from your newsletter?,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+what do I have to do to earn some items?,place_order,place_order,1,True,True,True,1.0
+I am trying to get reimbursements of my money,get_refund,get_refund,1,True,True,True,1.0
+can you help me seeing what payment methods are allowed?,check_payment_methods,check_payment_methods,1,True,True,True,1.0
+i cant notifyof a registration issue,registration_problems,registration_problems,1,True,True,True,1.0
+can you help me check the goddamn status of the rebate?,track_refund,track_refund,1,True,True,True,1.0
+where can i enter a secondary shipping address,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+help me set up the shipping address,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+canuhelp me to get the bills from {{Person Name}},get_invoice,get_invoice,1,True,True,True,1.0
+assistance to acquire some of  ur item,place_order,place_order,1,True,True,True,1.0
+help adding several products to purchase {{Order Number}},change_order,change_order,1,True,True,True,1.0
+I do not know what to do to retrieve the key of my profile,recover_password,recover_password,1,True,True,True,1.0
+cancelling order {{Order Number}},cancel_order,cancel_order,1,True,True,True,1.0
+I would like to list the payment modalities,check_payment_methods,check_payment_methods,1,True,True,True,1.0
+I want assistanc to see when my purchase is going to arrive,delivery_period,delivery_period,1,True,True,True,1.0
+i have got to enter my new deluvery address can ya help me,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+where do I inform of problems with registrations?,registration_problems,registration_problems,1,True,True,True,1.0
+notify of problems creating user,registration_problems,registration_problems,1,True,True,True,1.0
+"you are not helpful, I want assistance talking with someone",contact_human_agent,contact_human_agent,1,True,True,True,1.0
+i want assistance to cancel purchase {{Order Number}},cancel_order,cancel_order,1,True,True,True,1.0
+where to  see how soon can I expect my order?,delivery_period,delivery_period,1,True,True,True,1.0
+help seeing order {{Order Number}} status,track_order,track_order,1,True,True,True,1.0
+I need information about a delivery address update,change_shipping_address,change_shipping_address,1,True,True,True,1.0
+help me shop some of your item,place_order,place_order,1,True,True,True,1.0
+see the bill #37777,check_invoice,check_invoice,1,True,True,True,1.0
+hw to report troubles with payment?,payment_issue,payment_issue,1,True,True,True,1.0
+I don't know how I can unsubscribe to the newsletter,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+help seeing the available payment methods,check_payment_methods,check_payment_methods,1,True,True,True,1.0
+where do i check ur goddamn money bafk guarantee,check_refund_policy,check_refund_policy,1,True,True,True,1.0
+can i subscribe to ur corporate newsletter,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+i need help canceling order {{Order Number}},cancel_order,cancel_order,1,True,True,True,1.0
+where can i get information about the delivery period,delivery_period,delivery_period,1,True,True,True,1.0
+where to check when will my product arrive?,delivery_period,delivery_period,1,True,True,True,1.0
+"my experience with your brand was bad, make a consumer claim",complaint,complaint,1,True,True,True,1.0
+can you help me getting my invoice from {{Person Name}}?,get_invoice,get_invoice,1,True,True,True,1.0
+can you help me seeing the status of order {{Order Number}}?,track_order,track_order,1,True,True,True,1.0
+I want to send my feedback about a product,review,review,1,True,True,True,1.0
+help me notifying of a sign-up problem,registration_problems,registration_problems,1,True,True,True,1.0
+i dont understand a word ya say how to chat with a person,contact_human_agent,contact_human_agent,1,True,True,True,1.0
+problem with adding some articles to order {{Order Number}},change_order,change_order,1,True,True,True,1.0
+i try to make a complaint against ur company,complaint,complaint,1,True,True,True,1.0
+I want help to see the termination penalty,check_cancellation_fee,check_cancellation_fee,1,True,True,True,1.0
+I do not know how to leave an opinion,review,review,1,True,True,True,1.0
+i cant find anything about the cancellation fees,check_cancellation_fee,check_cancellation_fee,1,True,True,True,1.0
+I have to see when will my article arrive,delivery_period,delivery_period,1,True,True,True,1.0
+how do I receive the newsletter?,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+i need help seeing the canclelation charge,check_cancellation_fee,check_cancellation_fee,1,True,True,True,1.0
+where do I check what hours I can reach customer service?,contact_customer_service,contact_customer_service,1,True,True,True,1.0
+can I see at what time I can contact customer assistance?,contact_customer_service,contact_customer_service,1,True,True,True,1.0
+can ya help me speaking with an assistant,contact_human_agent,contact_human_agent,1,True,True,True,1.0
+how could I write a review?,review,review,1,True,True,True,1.0
+I need help to demand a compensation of money,get_refund,get_refund,1,True,True,True,1.0
+what do i have to do to notify of signup errors,registration_problems,registration_problems,1,True,True,True,1.0
+I need to submit my delivery address,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+assistance to submit feedback about a service,review,review,1,True,True,True,1.0
+what do I have to do to make a customer complaint?,complaint,complaint,1,True,True,True,1.0
+help me make a complaint against ur business,complaint,complaint,1,True,True,True,1.0
+help me filing a complaint against your organization,complaint,complaint,1,True,True,True,1.0
+i dont know how to cancel order {{Order Number}},cancel_order,cancel_order,1,True,True,True,1.0
+could y help me notifying of an issue with sign-up,registration_problems,registration_problems,1,True,True,True,1.0
+can you help me make a clain against your business?,complaint,complaint,1,True,True,True,1.0
+tell me more about canceling my newsletter subscription,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+could you tell me about the options for shipping?,delivery_options,delivery_options,1,True,True,True,1.0
+updating {{Account Type}} account,edit_account,edit_account,1,True,True,True,1.0
+I have got to demand a rebate,get_refund,get_refund,1,True,True,True,1.0
+I'm trying to report troubles with online  payment,payment_issue,payment_issue,1,True,True,True,1.0
+problem with {{Account Category}} account removals,delete_account,delete_account,1,True,True,True,1.0
+assistance deleting the secondary account,delete_account,delete_account,1,True,True,True,1.0
+i call to check how long it takes for my delivery to arrive,delivery_period,delivery_period,1,True,True,True,1.0
+troubles setting up a delivery address,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+wana swap a damn product of order {{Order Number}} help me,change_order,change_order,1,True,True,True,1.0
+unsubscribe from your corporate newsletter,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+add several articles to order {{Order Number}},change_order,change_order,1,True,True,True,1.0
+I want help to set a different shipping address up,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+help me modifying purchase {{Order Number}},change_order,change_order,1,True,True,True,1.0
+would it be possible to talk with somebody?,contact_human_agent,contact_human_agent,1,True,True,True,1.0
+I need assistance retrieving the access key of my account,recover_password,recover_password,1,True,True,True,1.0
+help me to delete an item from order {{Order Number}},change_order,change_order,1,True,True,True,1.0
+want assistance to delete a gold account,delete_account,delete_account,1,True,True,True,1.0
+is it possible to place a order from {{Delivery Country}}?,delivery_options,delivery_options,1,True,True,True,1.0
+I need assistance seeing the compensation current status,track_refund,track_refund,1,True,True,True,1.0
+I'm trying to see my refund current status,track_refund,track_refund,1,True,True,True,1.0
+help to leave my goddamn feedback for your company,review,review,1,True,True,True,1.0
+I want help to earn something,place_order,place_order,1,True,True,True,1.0
+"I have to set a shipping address up, how can I do it?",set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+I'm extremely unsatisfied with ur wor i wanna lodge a claim,complaint,complaint,1,True,True,True,1.0
+can I close a {{Account Category}} account?,delete_account,delete_account,1,True,True,True,1.0
+I am waiting for a compensation of {{Currency Symbol}}{{Refund Amount}},track_refund,track_refund,1,True,True,True,1.0
+I do not know what to do to check the cancellation penalties,check_cancellation_fee,check_cancellation_fee,1,True,True,True,1.0
+I want help resetting my access key,recover_password,recover_password,1,True,True,True,1.0
+cancel platinum account,delete_account,delete_account,1,True,True,True,1.0
+assistance to restore my damn profile access key,recover_password,recover_password,1,True,True,True,1.0
+how can I see what shipping methods are there?,delivery_options,delivery_options,1,True,True,True,1.0
+i need assistance to see how soon can i expect the order,delivery_period,delivery_period,1,True,True,True,1.0
+I want assistance to request reimbursements of money,get_refund,get_refund,1,True,True,True,1.0
+show me ur accepted payment methods,check_payment_methods,check_payment_methods,1,True,True,True,1.0
+"I have to sign up to your newsletter, could I get some help?",newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+i need help to cancel the newsletter subscription,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+i need help seeing the status of my compensation,track_refund,track_refund,1,True,True,True,1.0
+where to filr a consumer complaint?,complaint,complaint,1,True,True,True,1.0
+I need assistance to check when will my article arrive,delivery_period,delivery_period,1,True,True,True,1.0
+how can I get information about my {{Account Category}} account removal?,delete_account,delete_account,1,True,True,True,1.0
+would it be possible to check the shipping methods?,delivery_options,delivery_options,1,True,True,True,1.0
+there are issues setting up a secondary shipping address,set_up_shipping_address,set_up_shipping_address,1,True,True,True,1.0
+I want help ordering several articlers,place_order,place_order,1,True,True,True,1.0
+want assistance to check in what casew can I request refunds,check_refund_policy,check_refund_policy,1,True,True,True,1.0
+I need help to purchase several of your item,place_order,place_order,1,True,True,True,1.0
+"I am trying to find the shipping periods, can you help me?",delivery_period,delivery_period,1,True,True,True,1.0
+lodging consumer reclamation against urcompany,complaint,complaint,1,True,True,True,1.0
+leave review,review,review,1,True,True,True,1.0
+i want help changing to the gold account,switch_account,switch_account,1,True,True,True,1.0
+see in which cases can I request my money back,check_refund_policy,check_refund_policy,1,True,True,True,1.0
+I am looking for information about opening a {{Account Type}} account,create_account,create_account,1,True,True,True,1.0
+want help updating the address,change_shipping_address,change_shipping_address,1,True,True,True,1.0
+assistance checking howlong reimbursements take,check_refund_policy,check_refund_policy,1,True,True,True,1.0
+I have got to report issues with online payment,payment_issue,payment_issue,1,True,True,True,1.0
+i dont know what i have to do to download the invoice #12588,get_invoice,get_invoice,1,True,True,True,1.0
+I am trying to inform of a trouble with online payment,payment_issue,payment_issue,1,True,True,True,1.0
+where can I see the fucking status of order {{Order Number}}?,track_order,track_order,1,True,True,True,1.0
+how to see if there is anything wrong with my compensation,track_refund,track_refund,1,True,True,True,1.0
+i need assistance to get the invoice from {{Person Name}},get_invoice,get_invoice,1,True,True,True,1.0
+I need help contacting customerservice,contact_customer_service,contact_customer_service,1,True,True,True,1.0
+wanna check at what time i can reach customer assistance,contact_customer_service,contact_customer_service,1,True,True,True,1.0
+assistance to leave a comment about ur services,review,review,1,True,True,True,1.0
+i dont know how to sign up to the newsletter,newsletter_subscription,newsletter_subscription,1,True,True,True,1.0
+how can i see at what time i can call customer assistance,contact_customer_service,contact_customer_service,1,True,True,True,1.0
+want help to check in what situations can i ask for refunds,check_refund_policy,check_refund_policy,1,True,True,True,1.0
+what is your damn customer assistance number?,contact_customer_service,contact_customer_service,1,True,True,True,1.0
+I do not know how I can check the status of my rebate,track_refund,track_refund,1,True,True,True,1.0
+i want assistance to use the standard account,switch_account,switch_account,1,True,True,True,1.0
+can ya tell me ur acepted payment modalities,check_payment_methods,check_payment_methods,1,True,True,True,1.0
+another {{Account Type}} account for father,create_account,create_account,1,True,True,True,1.0
+where can i acquire an few of ur article,place_order,place_order,1,True,True,True,1.0

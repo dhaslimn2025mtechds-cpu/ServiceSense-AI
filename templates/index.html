@@ -494,80 +494,191 @@
 
     <div class="card">
 
-        <h2>3. Research Decision Process</h2>
+        <h2>3. How the Final Decision Is Made</h2>
 
-        <div class="result-grid">
+        <p class="subtitle">
+            The system compares Machine Learning and RAG results before giving the final resolution.
+        </p>
 
+        <div class="pipeline">
+
+            <div class="pipeline-box">Customer Complaint</div>
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">TF-IDF</div>
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">ML + RAG</div>
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">Hybrid Decision</div>
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">Resolution</div>
+
+        </div>
+
+        <div class="result-grid" style="margin-top:22px;">
 
             <div class="result-box">
-
-                <div class="label">
-                    ML Predicted Intent
-                </div>
-
-                <div class="value">
-                    {{ result.ml_intent }}
-                </div>
-
+                <div class="label">ML Prediction</div>
+                <div class="value">{{ result.ml_intent }}</div>
             </div>
 
-
             <div class="result-box">
-
-                <div class="label">
-                    RAG Predicted Intent
-                </div>
-
-                <div class="value">
-                    {{ result.rag_intent }}
-                </div>
-
+                <div class="label">ML Confidence</div>
+                <div class="value">{{ result.ml_confidence }}</div>
             </div>
 
-
             <div class="result-box">
-
-                <div class="label">
-                    ML Confidence
-                </div>
-
-                <div class="value">
-                    {{ result.ml_confidence }}
-                </div>
-
+                <div class="label">RAG Prediction</div>
+                <div class="value">{{ result.rag_intent }}</div>
             </div>
 
-
             <div class="result-box">
-
-                <div class="label">
-                    RAG Similarity
-                </div>
-
-                <div class="value">
-                    {{ result.rag_similarity }}
-                </div>
-
+                <div class="label">RAG Similarity</div>
+                <div class="value">{{ result.rag_similarity }}</div>
             </div>
 
         </div>
 
+        <div class="decision" style="margin-top:20px;">
 
-        <div class="decision" style="margin-top:18px;">
-
-            <strong>Selected Decision Path:</strong>
-
+            <strong>Final Decision Path:</strong>
             {{ result.decision_source }}
 
             <br><br>
 
-            <strong>Validation-selected threshold:</strong>
-
+            <strong>Validation Threshold:</strong>
             {{ result.threshold }}
+
+            <br><br>
+
+            <strong>Decision Explanation:</strong><br>
+
+            {% if result.decision_source == "RAG Retrieval" %}
+                RAG similarity {{ result.rag_similarity }} is equal to or above
+                the validation threshold {{ result.threshold }}, so the RAG
+                Retrieval path was selected.
+
+            {% elif result.decision_source == "ML Classifier" %}
+                RAG similarity {{ result.rag_similarity }} is below the validation
+                threshold {{ result.threshold }}, so the ML Classifier path was selected.
+                The ML model predicted <strong>{{ result.ml_intent }}</strong>
+                with confidence {{ result.ml_confidence }}.
+
+            {% elif result.decision_source == "Manual Review" %}
+                The complaint did not have enough reliable ML or RAG support,
+                so the system sent it for Manual Review instead of forcing a prediction.
+
+            {% elif result.decision_source == "Delivery Safety Rule" %}
+                The complaint contains a clear delivery-delay or order-tracking issue,
+                so the Delivery Safety Rule selected <strong>track_order</strong>.
+
+            {% elif result.decision_source == "Return Safety Rule" %}
+                The complaint contains a clear damaged, defective, wrong-item or return request,
+                so the Return Safety Rule selected <strong>return_product</strong>.
+
+            {% else %}
+                ML predicts the complaint intent, RAG retrieves similar support cases,
+                and the Hybrid system selects the appropriate decision path.
+            {% endif %}
 
         </div>
 
     </div>
+
+
+    {% if result.get('top_ml_predictions') %}
+
+    <!-- TOP 3 ML PREDICTIONS -->
+
+    <div class="card">
+
+        <h2>4. Top 3 ML Predictions</h2>
+
+        <p class="subtitle">
+            These are the three most likely complaint intents predicted by the Machine Learning model.
+        </p>
+
+        {% for item in result.top_ml_predictions %}
+
+        <div class="result-box" style="margin-bottom:14px;">
+
+            <div class="label">
+                ML Prediction {{ loop.index }}
+            </div>
+
+            <div class="value" style="margin-bottom:8px;">
+                {{ item.intent }}
+            </div>
+
+            <div>
+                <strong>Confidence:</strong>
+                {{ item.confidence_percent }}%
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+
+
+    {% if result.get('rag_evidence') %}
+
+    <!-- TOP 3 RAG EVIDENCE -->
+
+    <div class="card">
+
+        <h2>5. Top 3 RAG Evidence</h2>
+
+        <p class="subtitle">
+            These are the three most similar historical customer-support records retrieved by FAISS.
+        </p>
+
+        {% for item in result.rag_evidence %}
+
+        <div class="result-box" style="margin-bottom:16px; border-left-color:#10b981;">
+
+            <div class="label">
+                Retrieved Evidence {{ loop.index }}
+            </div>
+
+            <div style="margin-bottom:10px;">
+                <strong>Similar Complaint:</strong><br>
+                {{ item.complaint }}
+            </div>
+
+            <div style="margin-bottom:8px;">
+                <strong>Category:</strong>
+                {{ item.category }}
+            </div>
+
+            <div style="margin-bottom:8px;">
+                <strong>Intent:</strong>
+                {{ item.intent }}
+            </div>
+
+            <div style="margin-bottom:8px;">
+                <strong>Similarity:</strong>
+                {{ item.similarity }}
+            </div>
+
+            <div>
+                <strong>Retrieved Response:</strong><br>
+                {{ item.response }}
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
 
     {% endif %}
 
@@ -576,7 +687,7 @@
 
     <div class="card">
 
-        <h2>4. Experimental Model Comparison</h2>
+        <h2>6. Experimental Model Comparison</h2>
 
         <p class="subtitle">
             Research evaluation performed using the customer-support dataset.
@@ -623,7 +734,7 @@
 
     <div class="card">
 
-        <h2>5. Threshold Optimization</h2>
+        <h2>7. Threshold Optimization</h2>
 
         <p>
             The RAG similarity threshold was selected using validation data.
@@ -665,7 +776,7 @@
 
     <div class="card">
 
-        <h2>6. Final Unbiased Test Result</h2>
+        <h2>8. Final Unbiased Test Result</h2>
 
         <div class="result-grid">
 
@@ -698,7 +809,7 @@
 
     <div class="card">
 
-        <h2>7. Research Finding</h2>
+        <h2>9. Research Finding</h2>
 
         <p>
             Logistic Regression achieved the highest standalone classification
@@ -719,7 +830,7 @@
 
     <div class="card">
 
-        <h2>8. Proposed Research Contribution</h2>
+        <h2>10. Proposed Research Contribution</h2>
 
         <p>
             The proposed system combines ML intent classification,

@@ -1,0 +1,23 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Hugging Face models run offline
+ENV HF_HOME=/app/hf_cache
+ENV HF_HUB_OFFLINE=1
+ENV TRANSFORMERS_OFFLINE=1
+
+# Stable CPU execution inside Docker
+ENV OMP_NUM_THREADS=1
+ENV MKL_NUM_THREADS=1
+ENV OPENBLAS_NUM_THREADS=1
+ENV TOKENIZERS_PARALLELISM=false
+ENV PYTHONUNBUFFERED=1
+
+COPY requirements-docker.txt .
+RUN pip install --no-cache-dir -r requirements-docker.txt
+COPY . .
+
+EXPOSE 5001
+
+CMD ["python", "app_advanced.py"]

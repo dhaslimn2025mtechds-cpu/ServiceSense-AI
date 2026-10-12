@@ -9,6 +9,7 @@ from flask import Flask, render_template, request, jsonify
 import joblib
 import faiss
 import pandas as pd
+import re
 
 
 # ============================================================
@@ -174,6 +175,78 @@ def improve_resolution(intent, retrieved_response):
     )
 
 
+
+# ============================================================
+# CLEAN RETRIEVED DATASET TEXT FOR DEMO DISPLAY
+# ============================================================
+
+def clean_demo_text(text, max_length=None):
+
+    text = str(text)
+
+    replacements = {
+        "{{Order Number}}": "",
+        "{{Online Company Portal Info}}": "customer account",
+        "{{Online Order Interaction}}": "Orders",
+        "{{Customer Support Hours}}": "support hours",
+        "{{Customer Support Phone Number}}": "customer-support contact",
+        "{{Website URL}}": "support website"
+    }
+
+    for old, new in replacements.items():
+        text = text.replace(old, new)
+
+    # Clean awkward phrases created after placeholder removal/replacement.
+    text = re.sub(r"\bthe order number\s+the order number\b", "the order number", text, flags=re.I)
+    text = re.sub(r"\border\s+the order\b", "order", text, flags=re.I)
+    text = re.sub(r"\byour\s+the customer account\b", "your customer account", text, flags=re.I)
+    text = re.sub(r"\byour\s+customer account\b", "your customer account", text, flags=re.I)
+    text = re.sub(r"\bthe customer account\s+using\b", "your customer account using", text, flags=re.I)
+    text = re.sub(r"'Orders'\s+or\s+'Orders'", "'Orders'", text, flags=re.I)
+    text = re.sub(r"\s+", " ", text).strip()
+
+    # Clean punctuation spacing.
+    text = re.sub(r"\s+([,.!?;:])", r"\1", text)
+
+    if max_length and len(text) > max_length:
+
+        # Split only at real sentence endings.
+        # Do NOT treat numbered steps such as "1.", "2.", "3." as sentence endings.
+        sentence_parts = re.split(
+            r'(?<=[!?])\s+|(?<=[A-Za-z])\.(?=\s+[A-Z])',
+            text
+        )
+
+        complete_sentences = []
+        current_length = 0
+
+        for part in sentence_parts:
+
+            part = part.strip()
+
+            if not part:
+                continue
+
+            # Restore the full stop when the split occurred after a normal sentence.
+            if not part.endswith((".", "!", "?")):
+                part += "."
+
+            projected_length = current_length + len(part) + 1
+
+            if projected_length <= max_length or not complete_sentences:
+                complete_sentences.append(part)
+                current_length = projected_length
+            else:
+                break
+
+        if complete_sentences:
+            text = " ".join(complete_sentences)
+        else:
+            text = text
+
+    return text
+
+
 # ============================================================
 # 7. UNSUPPORTED / MANUAL REVIEW
 # ============================================================
@@ -269,9 +342,53 @@ def get_prediction(complaint):
             probabilities.max()
         )
 
+        # ----------------------------------------------------
+        # TOP 3 ML PREDICTIONS FOR DEMO
+        # ----------------------------------------------------
+
+        top_ml_predictions = []
+
+        top_indices = probabilities.argsort()[-3:][::-1]
+
+        for class_index in top_indices:
+
+            top_ml_predictions.append({
+
+                "intent":
+                    str(intent_model.classes_[class_index]),
+
+                "confidence":
+                    round(
+                        float(probabilities[class_index]),
+                        3
+                    ),
+
+                "confidence_percent":
+                    round(
+                        float(probabilities[class_index]) * 100,
+                        1
+                    )
+
+            })
+
     except Exception:
 
         model_confidence = 1.0
+
+        top_ml_predictions = [
+
+            {
+                "intent":
+                    predicted_intent,
+
+                "confidence":
+                    1.0,
+
+                "confidence_percent":
+                    100.0
+            }
+
+        ]
 
 
     # --------------------------------------------------------
@@ -297,6 +414,49 @@ def get_prediction(complaint):
         rag_vector,
         5
     )
+
+
+    # --------------------------------------------------------
+    # TOP 3 RAG EVIDENCE FOR DEMO
+    # --------------------------------------------------------
+
+    rag_evidence = []
+
+    for idx, score in zip(
+        indices[0][:3],
+        scores[0][:3]
+    ):
+
+        idx = int(idx)
+
+        if idx < 0 or idx >= len(df_selected):
+            continue
+
+        candidate = df_selected.iloc[idx]
+
+        rag_evidence.append({
+
+            "complaint":
+                clean_demo_text(
+                    candidate["instruction"]
+                ),
+
+            "category":
+                str(candidate["category"]),
+
+            "intent":
+                str(candidate["intent"]),
+
+            "similarity":
+                round(float(score), 3),
+
+            "response":
+                clean_demo_text(
+                    candidate["response"],
+                    max_length=350
+                )
+
+        })
 
 
     # --------------------------------------------------------
@@ -421,7 +581,13 @@ def get_prediction(complaint):
                 round(
                     best_similarity,
                     3
-                )
+                ),
+
+            "rag_evidence":
+                rag_evidence,
+
+            "top_ml_predictions":
+                top_ml_predictions
         }
 
 
@@ -771,7 +937,13 @@ def get_prediction(complaint):
             round(
                 best_similarity,
                 3
-            )
+            ),
+
+        "rag_evidence":
+            rag_evidence,
+
+        "top_ml_predictions":
+            top_ml_predictions
     }
 
 
@@ -912,7 +1084,19 @@ def api_predict():
             result["ml_confidence"],
 
         "rag_similarity":
-            result["rag_similarity"]
+            result["rag_similarity"],
+
+        "rag_evidence":
+            result.get(
+                "rag_evidence",
+                []
+            ),
+
+        "top_ml_predictions":
+            result.get(
+                "top_ml_predictions",
+                []
+            )
     })
 
 

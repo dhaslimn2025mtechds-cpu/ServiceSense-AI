@@ -1,18 +1,31 @@
-# Secret keys
+.venv/
+venv/
+__pycache__/
+*.pyc
 .env
+*.pkl
+*.joblib
+mlruns/
+.DS_Store
 
-# Virtual environment
+# Python and Jupyter
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
 .venv/
 venv/
 
-# Python cache
-__pycache__/
-*.pyc
-
-# Jupyter checkpoints
-.ipynb_checkpoints/
-
-# MLflow local files
-mlruns/
+# Cache and local experiments
+hf_cache/
 mlflow.db
-models/complaints_faiss.index
+mlruns/
+
+# Local environment and credentials
+.env
+.env.*
+*.pem
+*.key
+
+# Generated model artifacts
+models/*.npy
+models/*.index

@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ServiceSense AI - Advanced Agentic RAG</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        /* ====================================================
+           HEADER
+        ==================================================== */
+
+        .header {
+            background: #2874f0;
+            color: white;
+            padding: 24px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 30px;
+        }
+
+        .header p {
+            margin: 8px 0 0;
+            font-size: 16px;
+        }
+
+        .badge {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 6px 14px;
+            background: #ffcb05;
+            color: #172337;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* ====================================================
+           MAIN
+        ==================================================== */
+
+        .container {
+            max-width: 1150px;
+            margin: 28px auto;
+            padding: 0 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 22px;
+            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            color: #2874f0;
+            font-size: 21px;
+        }
+
+        .subtitle {
+            color: #6b7280;
+            line-height: 1.6;
+        }
+
+        /* ====================================================
+           PIPELINE
+        ==================================================== */
+
+        .pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .pipeline-box {
+            padding: 10px 13px;
+            background: #2874f0;
+            color: white;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .arrow {
+            font-weight: bold;
+            color: #6b7280;
+        }
+
+        /* ====================================================
+           CHAT
+        ==================================================== */
+
+        .chat-window {
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 18px;
+            margin-bottom: 18px;
+            max-height: 470px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 14px;
+            padding: 12px 15px;
+            border-radius: 9px;
+            line-height: 1.55;
+            word-break: break-word;
+        }
+
+        .customer-message {
+            background: #e8f0fe;
+            border-left: 4px solid #2874f0;
+        }
+
+        .system-message {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+        }
+
+        .message-role {
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            color: #4b5563;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 95px;
+            padding: 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #2874f0;
+        }
+
+        button {
+            margin-top: 14px;
+            background: #fb641b;
+            color: white;
+            border: none;
+            padding: 12px 22px;
+            border-radius: 7px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.92;
+        }
+
+        .reset-button {
+            background: #6b7280;
+            margin-left: 8px;
+        }
+
+        .button-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        /* ====================================================
+           SYSTEM RESPONSE
+        ==================================================== */
+
+        .response-box {
+            background: #ecfdf5;
+            border-left: 5px solid #10b981;
+            padding: 18px;
+            border-radius: 8px;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        .response-box h3 {
+            color: #047857;
+            margin-top: 0;
+        }
+
+        .error-box {
+            background: #fef2f2;
+            border-left: 4px solid #ef4444;
+            padding: 14px;
+            border-radius: 7px;
+            margin-bottom: 18px;
+        }
+
+        /* ====================================================
+           STATUS
+        ==================================================== */
+
+        .status {
+            display: inline-block;
+            padding: 7px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .status-resolved {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-escalated {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-waiting {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status-other {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        /* ====================================================
+           RESULT GRID
+        ==================================================== */
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .result-box {
+            background: #f8fafc;
+            border-left: 4px solid #2874f0;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .label {
+            font-size: 12px;
+            color: #6b7280;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 7px;
+        }
+
+        .value {
+            font-size: 16px;
+            font-weight: bold;
+            color: #111827;
+            word-break: break-word;
+        }
+
+        /* ====================================================
+           ARCHITECTURE / RESEARCH
+        ==================================================== */
+
+        .research-box {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 16px;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 18px;
+        }
+
+        .feature {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            border-top: 4px solid #2874f0;
+        }
+
+        .feature strong {
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .feature span {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        /* ====================================================
+           FOOTER
+        ==================================================== */
+
+        .footer {
+            text-align: center;
+            padding: 22px;
+            color: #6b7280;
+            font-size: 13px;
+        }
+
+        @media(max-width: 800px) {
+            .result-grid,
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ========================================================
+     HEADER
+======================================================== -->
+
+<div class="header">
+
+    <h1>ServiceSense AI</h1>
+
+    <p>
+        Uncertainty-Aware Agentic RAG Framework for
+        Multi-Turn Customer Complaint Resolution
+    </p>
+
+    <div class="badge">
+        Advanced Academic Research Prototype
+    </div>
+
+</div>
+
+
+<div class="container">
+
+
+    <!-- ====================================================
+         RESEARCH ARCHITECTURE
+    ==================================================== -->
+
+    <div class="card">
+
+        <h2>Advanced ServiceSense AI Architecture</h2>
+
+        <p class="subtitle">
+            This research prototype combines semantic intent
+            classification, hybrid retrieval, uncertainty-aware
+            decision making and LangGraph-based multi-turn
+            complaint resolution.
+        </p>
+
+        <div class="pipeline">
+
+            <div class="pipeline-box">
+                Customer Complaint
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">
+                Semantic Classification
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">
+                BM25 + MiniLM FAISS
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">
+                RRF Fusion
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">
+                Cross-Encoder
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">
+                Uncertainty Decision
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">
+                LangGraph Agent
+            </div>
+
+        </div>
+
+        <div class="pipeline" style="margin-top:14px;">
+
+            <div class="pipeline-box">
+                Resolution
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">
+                Satisfaction Check
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">
+                Follow-Up
+            </div>
+
+            <div class="arrow">→</div>
+
+            <div class="pipeline-box">
+                Re-Resolution / Escalation
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ====================================================
+         MULTI-TURN CUSTOMER SUPPORT
+    ==================================================== -->
+
+    <div class="card">
+
+        <h2>1. Multi-Turn Customer Support</h2>
+
+        <p class="subtitle">
+            Enter a customer complaint or continue the current
+            conversation. The system keeps the case state and
+            decides whether to resolve, clarify, continue the
+            conversation or escalate.
+        </p>
+
+
+        {% if error %}
+
+        <div class="error-box">
+            {{ error }}
+        </div>
+
+        {% endif %}
+
+
+        {% if result and result.conversation_history %}
+
+        <div class="chat-window">
+
+            {% for item in result.conversation_history %}
+
+                {% if item is mapping %}
+
+                    {% set role = item.get('role', item.get('speaker', 'System')) %}
+                    {% set text = item.get('message', item.get('content', item.get('text', ''))) %}
+                    {% set text = text | replace('{{Order Number}}', 'your order number') | replace('{{Order Status}}', 'Order Status page') %}
+
+                {% else %}
+
+                    {% set role = 'Conversation' %}
+                    {% set text = item %}
+
+                {% endif %}
+
+
+                {% if role|string|lower in ['customer', 'user'] %}
+
+                <div class="message customer-message">
+
+                    <div class="message-role">
+                        Customer
+                    </div>
+
+                    {{ text }}
+
+                </div>
+
+                {% else %}
+
+                <div class="message system-message">
+
+                    <div class="message-role">
+                        ServiceSense AI
+                    </div>
+
+                    {{ text }}
+
+                </div>
+
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+        {% endif %}
+
+
+        
+
+        <form method="POST" action="/chat">
+
+            <textarea
+                name="message"
+                placeholder="Example: My order has not arrived yet."
+                required></textarea>
+
+            <div class="button-row">
+
+                <button type="submit">
+                    Send Message
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <form method="POST" action="/reset">
+
+            <button
+                type="submit"
+                class="reset-button">
+
+                Start New Case
+
+            </button>
+
+        </form>
+
+    </div>
+
+
+    {% if result %}
+
+    <!-- ====================================================
+         CURRENT CASE STATUS
+    ==================================================== -->
+
+    <div class="card">
+
+        <h2>2. Current Case Status</h2>
+
+
+        {% if result.status == "RESOLVED" %}
+
+            <span class="status status-resolved">
+                RESOLVED
+            </span>
+
+        {% elif result.status == "ESCALATED" %}
+
+            <span class="status status-escalated">
+                ESCALATED
+            </span>
+
+        {% elif "WAITING" in result.status %}
+
+            <span class="status status-waiting">
+                {{ result.status }}
+            </span>
+
+        {% else %}
+
+            <span class="status status-other">
+                {{ result.status }}
+            </span>
+
+        {% endif %}
+
+
+        <div class="result-grid" style="margin-top:20px;">
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Original Complaint
+                </div>
+
+                <div class="value">
+                    {{ result.original_complaint or "N/A" }}
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Current Decision
+                </div>
+
+                <div class="value">
+                    {{ result.decision }}
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Resolution Attempts
+                </div>
+
+                <div class="value">
+                    {{ result.resolution_attempts }}
+                    / 3
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Clarifications
+                </div>
+
+                <div class="value">
+                    {{ result.clarification_count }}
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Waiting For
+                </div>
+
+                <div class="value">
+                    {{ result.awaiting_input or "None" }}
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Decision Reason
+                </div>
+
+                <div class="value">
+                    {{ result.reason or "N/A" }}
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ====================================================
+         SEMANTIC CLASSIFICATION
+    ==================================================== -->
+
+    <div class="card">
+
+        <h2>3. Semantic Intent Classification</h2>
+
+        <div class="result-grid">
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Predicted Intent
+                </div>
+
+                <div class="value">
+                    {{ result.ml_intent }}
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Semantic Confidence
+                </div>
+
+                <div class="value">
+
+                    {% if result.ml_confidence is number %}
+
+                        {{ "%.2f"|format(result.ml_confidence * 100) }}%
+
+                    {% else %}
+
+                        {{ result.ml_confidence }}
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Confidence Margin
+                </div>
+
+                <div class="value">
+
+                    {% if result.confidence_margin is number %}
+
+                        {{ "%.4f"|format(result.confidence_margin) }}
+
+                    {% else %}
+
+                        {{ result.confidence_margin }}
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Classification Method
+                </div>
+
+                <div class="value">
+                    MiniLM Embeddings + Logistic Regression
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ====================================================
+         ADVANCED RAG
+    ==================================================== -->
+
+    <div class="card">
+
+        <h2>4. Advanced Hybrid Retrieval</h2>
+
+        <div class="result-grid">
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Retrieved Intent
+                </div>
+
+                <div class="value">
+                    {{ result.rag_intent }}
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Cross-Encoder Score
+                </div>
+
+                <div class="value">
+
+                    {% if result.rag_reranker_score is number %}
+
+                        {{ "%.4f"|format(result.rag_reranker_score) }}
+
+                    {% else %}
+
+                        {{ result.rag_reranker_score }}
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    ML / RAG Agreement
+                </div>
+
+                <div class="value">
+
+                    {% if result.intent_agreement %}
+                        Yes
+                    {% else %}
+                        No
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+
+            <div class="result-box">
+
+                <div class="label">
+                    Retrieval Pipeline
+                </div>
+
+                <div class="value">
+                    BM25 + MiniLM FAISS + RRF + Cross-Encoder
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ====================================================
+         AGENTIC DECISION
+    ==================================================== -->
+
+    <div class="card">
+
+        <h2>5. Uncertainty-Aware Agentic Decision</h2>
+
+        <div class="research-box">
+
+            <strong>Decision:</strong>
+            {{ result.decision }}
+
+            <br><br>
+
+            <strong>Reason:</strong>
+            {{ result.reason or "N/A" }}
+
+            <br><br>
+
+            <strong>Current Status:</strong>
+            {{ result.status }}
+
+            <br><br>
+
+            <strong>LangGraph Action:</strong>
+
+            {% if result.status == "WAITING_FOR_SATISFACTION" %}
+
+                A resolution has been generated.
+                The agent is now checking whether the customer
+                is satisfied.
+
+            {% elif result.status == "WAITING_FOR_CLARIFICATION" %}
+
+                The complaint is uncertain.
+                The agent requested clarification instead of
+                forcing a prediction.
+
+            {% elif result.status == "WAITING_FOR_FOLLOW_UP" %}
+
+                The previous resolution did not solve the issue.
+                The agent is waiting for the customer's remaining
+                problem before trying another resolution.
+
+            {% elif result.status == "RESOLVED" %}
+
+                The customer confirmed that the issue was resolved
+                and the case was closed.
+
+            {% elif result.status == "ESCALATED" %}
+
+                Automated resolution was insufficient.
+                The case was escalated to human support.
+
+            {% else %}
+
+                The LangGraph workflow is processing the current
+                customer-support state.
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ====================================================
+         RESEARCH COMPONENTS
+    ==================================================== -->
+
+    <div class="card">
+
+        <h2>6. Proposed Research Components</h2>
+
+        <div class="feature-grid">
+
+
+            <div class="feature">
+
+                <strong>Semantic Classification</strong>
+
+                <span>
+                    MiniLM sentence embeddings are used with
+                    Logistic Regression for intent prediction.
+                </span>
+
+            </div>
+
+
+            <div class="feature">
+
+                <strong>Hybrid Retrieval</strong>
+
+                <span>
+                    BM25 sparse retrieval and MiniLM dense FAISS
+                    retrieval provide complementary evidence.
+                </span>
+
+            </div>
+
+
+            <div class="feature">
+
+                <strong>RRF Fusion</strong>
+
+                <span>
+                    Reciprocal Rank Fusion combines sparse and
+                    dense retrieval rankings.
+                </span>
+
+            </div>
+
+
+            <div class="feature">
+
+                <strong>Cross-Encoder Re-ranking</strong>
+
+                <span>
+                    Retrieved candidates are re-ranked using a
+                    Cross-Encoder relevance model.
+                </span>
+
+            </div>
+
+
+            <div class="feature">
+
+                <strong>Uncertainty Awareness</strong>
+
+                <span>
+                    Low-confidence or conflicting predictions
+                    trigger clarification or escalation instead
+                    of automatically forcing a resolution.
+                </span>
+
+            </div>
+
+
+            <div class="feature">
+
+                <strong>LangGraph Multi-Turn Agent</strong>
+
+                <span>
+                    Conversation state controls resolution,
+                    satisfaction checking, follow-up handling
+                    and human escalation.
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ====================================================
+         RESEARCH CONTRIBUTION
+    ==================================================== -->
+
+    <div class="card">
+
+        <h2>7. Proposed Research Contribution</h2>
+
+        <p class="subtitle">
+            ServiceSense AI extends single-turn complaint
+            classification into a stateful multi-turn resolution
+            framework. The system combines semantic classification,
+            hybrid evidence retrieval, uncertainty-aware decisions
+            and agentic workflow orchestration.
+        </p>
+
+        <div class="research-box">
+
+            <strong>Key workflow:</strong>
+
+            Customer Complaint
+            →
+            Classify
+            →
+            Retrieve Evidence
+            →
+            Re-rank
+            →
+            Resolve or Clarify
+            →
+            Check Satisfaction
+            →
+            Follow-Up
+            →
+            Re-resolve or Human Escalation
+
+        </div>
+
+    </div>
+
+
+</div>
+
+
+<div class="footer">
+
+    ServiceSense AI |
+    Advanced Academic Research Prototype |
+    Flipkart E-Commerce Use Case
+
+</div>
+
+
+</body>
+</html>
