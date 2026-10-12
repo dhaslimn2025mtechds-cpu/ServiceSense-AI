@@ -13,6 +13,7 @@ from langgraph_agent import ServiceSenseLangGraphAgent
 class MultiTurnState(TypedDict, total=False):
     current_message: str
     original_complaint: str
+    analysis_query: str
 
     conversation_history: List[Dict[str, str]]
     previous_resolutions: List[str]
@@ -84,66 +85,81 @@ class ServiceSenseMultiTurnLangGraphAgent:
         return updated_history
 
     # ========================================================
+    # CONTEXT-AWARE MESSAGE ANALYSIS
+    # ========================================================
+
+    @staticmethod
+    def _substantive_reply(message: str) -> str:
+        """Strip a leading acknowledgement, but keep its actual details."""
+        import re
+
+        cleaned = re.sub(
+            r"^(?:yes|yeah|yep|correct|right|okay|ok)[,!.\s]+",
+            "", message.strip(), flags=re.IGNORECASE,
+        ).strip()
+        if cleaned.lower() in {"yes", "yeah", "yep", "ok", "okay", "correct", "right"}:
+            return ""
+        return cleaned
+
+    def _context_query(self, state: MultiTurnState, message: str) -> str:
+        """Ground follow-ups in the existing complaint, avoiding bare 'yes'."""
+        original = state.get("original_complaint", "").strip()
+        awaiting = state.get("awaiting_input", "")
+        if not original or awaiting not in {"FOLLOW_UP", "CLARIFICATION"}:
+            return message
+
+        history = state.get("conversation_history", [])
+        relevant = []
+        # Preserve a short window of customer-provided facts, not AI responses.
+        # The first customer turn is already represented by `original`.
+        for item in history:
+            if item.get("role") != "customer":
+                continue
+            detail = self._substantive_reply(item.get("message", ""))
+            if (detail and detail.lower() != original.lower()
+                    and len(detail.split()) >= 3):
+                relevant.append(detail)
+
+        current = self._substantive_reply(message)
+        if current and len(current.split()) >= 2:
+            relevant.append(current)
+
+        # Remove duplicates and use recent contextual details. This is a
+        # retrieval query, not an instruction to invent order information.
+        details = list(dict.fromkeys(x.lower() for x in relevant))[-3:]
+        if not details:
+            return original
+        return original + ". Additional customer details: " + "; ".join(details)
+
+    # ========================================================
     # NODE 1: ANALYZE CUSTOMER MESSAGE
     # ========================================================
 
     def analyze_node(self, state: MultiTurnState) -> Dict[str, Any]:
-
         print("\n[Multi-Turn Graph] Analyze Customer Message")
-
         message = state.get("current_message", "").strip()
-
-        history = state.get("conversation_history", [])
-
         history = self._append_history(
-            history,
-            "customer",
-            message,
+            state.get("conversation_history", []), "customer", message
         )
-
-        original_complaint = state.get("original_complaint", "")
-
-        if not original_complaint:
-            original_complaint = message
-
-        # IMPORTANT:
-        # Classification/retrieval uses the latest explicit
-        # customer message.
-        #
-        # Previous conversation is preserved separately in
-        # conversation_history.
-        analysis = self.analysis_agent.process(message)
+        original_complaint = state.get("original_complaint", "") or message
+        query = self._context_query(state, message)
+        print("[Multi-Turn Graph] Context query:", query)
+        analysis = self.analysis_agent.process(query)
 
         return {
             "original_complaint": original_complaint,
+            "analysis_query": query,
             "conversation_history": history,
-
             "ml_intent": analysis.get("ml_intent", ""),
             "ml_confidence": analysis.get("ml_confidence", 0.0),
-            "confidence_margin": analysis.get(
-                "confidence_margin",
-                0.0,
-            ),
-
+            "confidence_margin": analysis.get("confidence_margin", 0.0),
             "rag_intent": analysis.get("rag_intent", ""),
-            "rag_reranker_score": analysis.get(
-                "rag_reranker_score",
-                0.0,
-            ),
-
-            "intent_agreement": analysis.get(
-                "intent_agreement",
-                False,
-            ),
-
+            "rag_reranker_score": analysis.get("rag_reranker_score", 0.0),
+            "intent_agreement": analysis.get("intent_agreement", False),
             "decision": analysis.get("decision", ""),
             "reason": analysis.get("reason", ""),
-
-            # The single-turn agent already creates the
-            # appropriate resolution / clarification message.
             "system_message": analysis.get(
-                "system_response",
-                analysis.get("system_message", ""),
+                "system_response", analysis.get("system_message", "")
             ),
         }
 
