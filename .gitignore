@@ -29,3 +29,4 @@ mlruns/
 # Generated model artifacts
 models/*.npy
 models/*.index
+servicesense_env/
